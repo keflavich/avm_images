@@ -1,10 +1,10 @@
 creator_did          = ivo://UNK.AUTH/P/Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop/meta
-obs_title            = Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop.jpg-meta
+obs_title            = Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm.png-meta
 dataproduct_type     = meta
 hips_frame           = equatorial
 hips_order           = 15
 hips_tile_width      = 512
-hips_release_date    = 2025-04-24T16:26Z
+hips_release_date    = 2025-04-24T16:50Z
 progen_max_cell      = 1024x1024
 hips_version         = 1.4
 hips_builder         = Aladin/HipsGen v12.618

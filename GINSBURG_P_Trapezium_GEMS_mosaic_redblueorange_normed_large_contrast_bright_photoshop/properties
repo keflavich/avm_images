@@ -2,7 +2,7 @@ creator_did          = ivo://UNK.AUTH/P/Trapezium_GEMS_mosaic_redblueorange_norm
 hips_overlay         = overlayMean mergeOverwriteTile treeMedian
 #hips_creator        = HiPS creator (institute or person)
 #hips_copyright      = Copyright mention of the HiPS
-obs_title            = Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop.jpg
+obs_title            = Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm.png
 #obs_collection      = Dataset collection name
 #obs_description     = Dataset text description
 #obs_ack             = Acknowledgement mention
@@ -13,13 +13,13 @@ obs_title            = Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast
 #obs_copyright_url   = URL to copyright page of the original data
 #t_min               = Start time in MJD ( =(Unixtime/86400)+40587  or https://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl)
 #t_max               = Stop time in MJD
-moc_sky_fraction     = 8.094E-8
+moc_sky_fraction     = 4.990E-8
 #em_min              = Start in spectral coordinates in meters ( =2.998E8/freq in Hz, or =1.2398841929E-12*energy in MeV )
 #em_max              = Stop in spectral coordinates in meters
 #obs_regime          = Waveband keyword (Radio Infrared Optical UV X-ray Gamma-ray)
 hips_builder         = Aladin/HipsGen v12.618
 hips_version         = 1.4
-hips_release_date    = 2025-04-24T16:26Z
+hips_release_date    = 2025-04-24T16:50Z
 hips_frame           = equatorial
 hips_order           = 15
 hips_order_min       = 0
@@ -33,10 +33,10 @@ hips_initial_fov     = 0.06188
 hips_pixel_scale     = 3.494E-6
 s_pixel_scale        = 5.5E-6
 dataproduct_type     = image
-hipsgen_date         = 2025-04-24T16:26Z
-hipsgen_params       = maxThread=20 in=Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop.jpg id=Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop
-hips_creation_date   = 2025-04-24T16:26Z
-hips_estsize         = 275178
-hips_nb_tiles        = 1475
+hipsgen_date         = 2025-04-24T16:50Z
+hipsgen_params       = maxThread=20 in=Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm.png id=Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop
+hips_creation_date   = 2025-04-24T16:50Z
+hips_estsize         = 277788
+hips_nb_tiles        = 924
 dataproduct_subtype  = color
-hips_check_code      = png:3484101686
+hips_check_code      = png:26586949
