@@ -1,0 +1,10 @@
+creator_did          = ivo://UNK.AUTH/P/MUSTANG_ACES_feather/meta
+obs_title            = MUSTANG_12m_feather_noaxes.jpg-meta
+dataproduct_type     = meta
+hips_frame           = equatorial
+hips_order           = 10
+hips_tile_width      = 512
+hips_release_date    = 2025-04-25T00:29Z
+progen_max_cell      = 1024x1024
+hips_version         = 1.4
+hips_builder         = Aladin/HipsGen v12.618
