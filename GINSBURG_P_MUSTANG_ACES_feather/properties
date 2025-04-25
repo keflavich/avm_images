@@ -1,4 +1,4 @@
-creator_did          = ivo://UNK.AUTH/P/MUSTANG_ACES_feather
+creator_did          = ivo://GINSBURG/P/MUSTANG_ACES_feather
 hips_overlay         = overlayMean mergeOverwriteTile treeMedian
 #hips_creator        = HiPS creator (institute or person)
 #hips_copyright      = Copyright mention of the HiPS
@@ -13,14 +13,14 @@ obs_title            = MUSTANG_12m_feather_noaxes.jpg
 #obs_copyright_url   = URL to copyright page of the original data
 #t_min               = Start time in MJD ( =(Unixtime/86400)+40587  or https://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl)
 #t_max               = Stop time in MJD
-moc_sky_fraction     = 2.495E-5
+moc_sky_fraction     = 4.990E-5
 #em_min              = Start in spectral coordinates in meters ( =2.998E8/freq in Hz, or =1.2398841929E-12*energy in MeV )
 #em_max              = Stop in spectral coordinates in meters
 #obs_regime          = Waveband keyword (Radio Infrared Optical UV X-ray Gamma-ray)
 hips_builder         = Aladin/HipsGen v12.618
 hips_version         = 1.4
-hips_release_date    = 2025-04-25T00:29Z
-hips_frame           = equatorial
+hips_release_date    = 2025-04-25T01:02Z
+hips_frame           = galactic
 hips_order           = 10
 hips_order_min       = 0
 hips_tile_width      = 512
@@ -36,7 +36,9 @@ dataproduct_type     = image
 hipsgen_date         = 2025-04-25T00:29Z
 hipsgen_params       = maxThread=20 in=MUSTANG_12m_feather_noaxes.jpg id=MUSTANG_ACES_feather
 hips_creation_date   = 2025-04-25T00:29Z
-hips_estsize         = 60079
-hips_nb_tiles        = 458
+hipsgen_date_1       = 2025-04-25T01:02Z
+hipsgen_params_1     = maxThread=20 in=MUSTANG_12m_feather_noaxes.jpg id=GINSBURG/P/MUSTANG_ACES_feather frame=galactic
+hips_estsize         = 120131
+hips_nb_tiles        = 938
 dataproduct_subtype  = color
-hips_check_code      = png:1375493999
+hips_check_code      = png:1196538653
