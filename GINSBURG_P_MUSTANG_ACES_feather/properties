@@ -19,8 +19,8 @@ moc_sky_fraction     = 4.990E-5
 #obs_regime          = Waveband keyword (Radio Infrared Optical UV X-ray Gamma-ray)
 hips_builder         = Aladin/HipsGen v12.618
 hips_version         = 1.4
-hips_release_date    = 2025-04-25T01:02Z
-hips_frame           = galactic
+hips_release_date    = 2025-04-25T01:56Z
+hips_frame           = equatorial
 hips_order           = 10
 hips_order_min       = 0
 hips_tile_width      = 512
@@ -38,6 +38,8 @@ hipsgen_params       = maxThread=20 in=MUSTANG_12m_feather_noaxes.jpg id=MUSTANG
 hips_creation_date   = 2025-04-25T00:29Z
 hipsgen_date_1       = 2025-04-25T01:02Z
 hipsgen_params_1     = maxThread=20 in=MUSTANG_12m_feather_noaxes.jpg id=GINSBURG/P/MUSTANG_ACES_feather frame=galactic
+hipsgen_date_2       = 2025-04-25T01:56Z
+hipsgen_params_2     = maxThread=20 in=MUSTANG_12m_feather_noaxes.jpg id=GINSBURG/P/MUSTANG_ACES_feather
 hips_estsize         = 120131
 hips_nb_tiles        = 938
 dataproduct_subtype  = color
