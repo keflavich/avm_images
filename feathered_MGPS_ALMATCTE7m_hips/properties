@@ -1,8 +1,8 @@
-creator_did          = ivo://reproject/P/f321ca6d-d40d-44d8-94a4-7b36e4f485f1
+creator_did          = ivo://reproject/P/4d25ad7b-e72e-472d-887d-b6950550c75e
 obs_title            = 
 dataproduct_type     = image
 hips_version         = 1.4
-hips_release_date    = 2025-06-28T15:02:19.762623
+hips_release_date    = 2025-06-28T15:08:49.107247
 hips_status          = public master clonableOnce
 hips_tile_format     = png
 hips_tile_width      = 512
