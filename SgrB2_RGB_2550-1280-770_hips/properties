@@ -1,0 +1,14 @@
+creator_did          = ivo://reproject/P/ce7fb76e-6849-4558-9eba-0c6e0573daa6
+obs_title            = 
+dataproduct_type     = image
+hips_version         = 1.4
+hips_release_date    = 2025-06-29T00:10:00.705318
+hips_status          = public master clonableOnce
+hips_tile_format     = png
+hips_tile_width      = 512
+hips_order           = 13
+hips_frame           = galactic
+hips_builder         = astropy/reproject
+hips_initial_ra      = 266.83479547945905
+hips_initial_dec     = -28.398044228839463
+hips_initial_fov     = 0.0540165865256066
