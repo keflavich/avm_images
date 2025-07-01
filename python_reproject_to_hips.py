@@ -14,7 +14,7 @@ import glob
 log.setLevel('INFO')
 
 def main():
-    for filename in ['SgrB2_RGB_2550-1280-770.png', 'BrickJWST_merged_longwave_narrowband.png', 'BrickJWST_merged_longwave_narrowband_withstars.png', 'BrickJWST_1182p2221_405_356_200.png', 'SgrB2_RGB_480-405-187_scaled.png', 'feathered_MGPS_ALMATCTE7m.png', 'MUSTANG_12m_feather_noaxes.png', 'rgb_final_uncropped.png', 'SgrB2M_RGB.png', 'SgrB2N_RGB.png']:
+    for filename in ['Cloudef_RGB_4802-3602-2102.png', 'SGRC_RGB_480-360-212.png', 'cloudcJWST_merged_R-F466N_B-F405N_rotated.png', 'SgrB2_RGB_2550-1280-770.png', 'BrickJWST_merged_longwave_narrowband.png', 'BrickJWST_merged_longwave_narrowband_withstars.png', 'BrickJWST_1182p2221_405_356_200.png', 'SgrB2_RGB_480-405-187_scaled.png', 'feathered_MGPS_ALMATCTE7m.png', 'MUSTANG_12m_feather_noaxes.png', 'rgb_final_uncropped.png', 'SgrB2M_RGB.png', 'SgrB2N_RGB.png']:
 
         try:
             avm = pyavm.AVM.from_image(filename)
@@ -83,6 +83,13 @@ def main():
     if os.path.exists('AshFigureWithACES_MUSTANGfirst'):
         shutil.rmtree('AshFigureWithACES_MUSTANGfirst')
     coadd_hips(['MUSTANG_12m_feather_noaxes_hips', 'rgb_final_uncropped_hips', ], 'AshFigureWithACES_MUSTANGfirst')
+
+    coadd_hips(['cloudcJWST_merged_R-F466N_B-F405N_rotated_hips',
+                'SgrB2_RGB_480-405-187_scaled_hips',
+                'Cloudef_RGB_4802-3602-2102_hips',
+                'SGRC_RGB_480-360-212_hips',
+                'BrickJWST_merged_longwave_narrowband_hips'],
+               'jwst_cmz_hips')
 
 if __name__ == "__main__":
     main()
