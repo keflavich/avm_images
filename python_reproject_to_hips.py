@@ -13,8 +13,36 @@ import glob
 
 log.setLevel('INFO')
 
+def convert_black_to_transparent(image_path):
+    """Convert solid black pixels to transparent in an image"""
+    img = PIL.Image.open(image_path)
+
+    # Convert to RGBA if not already
+    if img.mode != 'RGBA':
+        img = img.convert('RGBA')
+
+    # Convert to numpy array for easier manipulation
+    img_array = np.array(img)
+
+    # Find solid black pixels (R=0, G=0, B=0)
+    black_pixels = (img_array[:, :, 0] == 0) & (img_array[:, :, 1] == 0) & (img_array[:, :, 2] == 0)
+
+    # Set alpha to 0 for black pixels (make them transparent)
+    img_array[black_pixels, 3] = 0
+
+    # Convert back to PIL Image
+    img_transparent = PIL.Image.fromarray(img_array, 'RGBA')
+
+    # Save with transparent suffix
+    transparent_path = image_path.replace('.png', '_transparent.png').replace('.jpg', '_transparent.jpg')
+    img_transparent.save(transparent_path)
+
+    return transparent_path
+
 def main():
     for filename in ['Sickle_RGB_1500-1130-770.png',
+                     'SgrA_RGB_MIRI_1500-1000-560.png',
+                     'SgrA_RGB_NIRCam_444-323-212.png',
                      'ArchesQuintuplet_RGB_323-average-212_log.png',
                      'SgrB2_2550_770_480_avm.png', 'Cloudef_RGB_4802-3602-2102.png', 'SGRC_RGB_480-360-212.png', 'cloudcJWST_merged_R-F466N_B-F405N_rotated.png', 'SgrB2_RGB_2550-1280-770.png', 'BrickJWST_merged_longwave_narrowband.png', 'BrickJWST_merged_longwave_narrowband_withstars.png', 'BrickJWST_1182p2221_405_356_200.png', 'SgrB2_RGB_480-405-187_scaled.png', 'feathered_MGPS_ALMATCTE7m.png', 'MUSTANG_12m_feather_noaxes.png', 'rgb_final_uncropped.png', 'SgrB2M_RGB.png', 'SgrB2N_RGB.png']:
 
@@ -33,15 +61,25 @@ def main():
 
         print(filename, output_directory, np.array(PIL.Image.open(filename)).shape ) #pyavm.AVM.from_image(filename))
 
-        if np.array(PIL.Image.open(filename)).shape[2] == 4:
+        # Convert black pixels to transparent
+        print(f"Converting black pixels to transparent for {filename}")
+        filename_transparent = convert_black_to_transparent(filename)
+
+        # Copy AVM metadata to the transparent version
+        avm.embed(filename_transparent, filename_transparent)
+
+        # Use the transparent version for processing
+        processing_filename = filename_transparent
+
+        if np.array(PIL.Image.open(processing_filename)).shape[2] == 4:
             print("RGBA image")
-            filename_noalpha = filename.replace('.png', '_noalpha.png').replace('.jpg', '_noalpha.jpg')
+            filename_noalpha = processing_filename.replace('.png', '_noalpha.png').replace('.jpg', '_noalpha.jpg')
             if os.path.exists(filename_noalpha):
-                filename = filename_noalpha
-                print(f"Found existing no-alpha image {filename}")
+                processing_filename = filename_noalpha
+                print(f"Found existing no-alpha image {processing_filename}")
             else:
                 # Convert RGBA to RGB by dropping alpha channel
-                img = PIL.Image.open(filename)
+                img = PIL.Image.open(processing_filename)
                 img_rgb = img.convert('RGB')
                 img_rgb.save(filename_noalpha)
 
@@ -52,13 +90,13 @@ def main():
                 assert np.array(PIL.Image.open(filename_noalpha)).shape[2] == 3
 
                 # Update filename to use the no-alpha version
-                filename = filename_noalpha
-                output_directory = filename.replace('.png', '_hips').replace('.jpg', '_hips')
-                print(f"Converted RGBA to RGB: {filename}")
+                processing_filename = filename_noalpha
+                output_directory = processing_filename.replace('.png', '_hips').replace('.jpg', '_hips')
+                print(f"Converted RGBA to RGB: {processing_filename}")
 
         #print(filename, output_directory, np.array(PIL.Image.open(filename)).shape) #pyavm.AVM.from_image(filename))
 
-        reproject_to_hips(filename,
+        reproject_to_hips(processing_filename,
                     coord_system_out='galactic',
                     level=None,
                     reproject_function=reproject_interp,
@@ -96,6 +134,8 @@ def main():
                 'BrickJWST_merged_longwave_narrowband_hips',
                 'ArchesQuintuplet_RGB_323-average-212_log_hips',
                 'Sickle_RGB_1500-1130-770_hips',
+                'SgrA_RGB_NIRCam_444-323-212_hips',
+                'SgrA_RGB_MIRI_1500-1000-560_hips',
                 ],
                'jwst_cmz_hips')
 
