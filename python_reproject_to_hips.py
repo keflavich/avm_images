@@ -4,6 +4,7 @@ import shutil
 import PIL.Image
 import pyavm
 from astropy import log
+from scipy.ndimage import label, binary_dilation
 
 from tqdm.auto import tqdm
 from reproject.hips import reproject_to_hips
@@ -14,7 +15,7 @@ import glob
 log.setLevel('INFO')
 
 def convert_black_to_transparent(image_path):
-    """Convert solid black pixels to transparent in an image"""
+    """Convert solid black pixels to transparent in an image, but only if they're connected to the edges"""
     img = PIL.Image.open(image_path)
 
     # Convert to RGBA if not already
@@ -23,12 +24,37 @@ def convert_black_to_transparent(image_path):
 
     # Convert to numpy array for easier manipulation
     img_array = np.array(img)
+    height, width = img_array.shape[:2]
 
     # Find solid black pixels (R=0, G=0, B=0)
     black_pixels = (img_array[:, :, 0] == 0) & (img_array[:, :, 1] == 0) & (img_array[:, :, 2] == 0)
 
-    # Set alpha to 0 for black pixels (make them transparent)
-    img_array[black_pixels, 3] = 0
+    # Label connected components of black pixels
+    labeled_regions, num_regions = label(black_pixels)
+
+    # Create a mask for edge-connected black pixels
+    edge_connected_black = np.zeros_like(black_pixels, dtype=bool)
+
+    # Check which labeled regions touch the edges
+    edge_touching_labels = set()
+
+    # Check top and bottom edges
+    edge_touching_labels.update(labeled_regions[0, :])  # Top edge
+    edge_touching_labels.update(labeled_regions[height-1, :])  # Bottom edge
+
+    # Check left and right edges
+    edge_touching_labels.update(labeled_regions[:, 0])  # Left edge
+    edge_touching_labels.update(labeled_regions[:, width-1])  # Right edge
+
+    # Remove label 0 (background/non-black pixels)
+    edge_touching_labels.discard(0)
+
+    # Create mask for all pixels belonging to edge-touching regions
+    for label_id in edge_touching_labels:
+        edge_connected_black |= (labeled_regions == label_id)
+
+    # Set alpha to 0 only for edge-connected black pixels
+    img_array[edge_connected_black, 3] = 0
 
     # Convert back to PIL Image
     img_transparent = PIL.Image.fromarray(img_array, 'RGBA')
@@ -44,7 +70,14 @@ def main():
                      'SgrA_RGB_MIRI_1500-1000-560.png',
                      'SgrA_RGB_NIRCam_444-323-212.png',
                      'ArchesQuintuplet_RGB_323-average-212_log.png',
-                     'SgrB2_2550_770_480_avm.png', 'Cloudef_RGB_4802-3602-2102.png', 'SGRC_RGB_480-360-212.png', 'cloudcJWST_merged_R-F466N_B-F405N_rotated.png', 'SgrB2_RGB_2550-1280-770.png', 'BrickJWST_merged_longwave_narrowband.png', 'BrickJWST_merged_longwave_narrowband_withstars.png', 'BrickJWST_1182p2221_405_356_200.png', 'SgrB2_RGB_480-405-187_scaled.png', 'feathered_MGPS_ALMATCTE7m.png', 'MUSTANG_12m_feather_noaxes.png', 'rgb_final_uncropped.png', 'SgrB2M_RGB.png', 'SgrB2N_RGB.png']:
+                     'w51_RGB_162-210-187.png',
+                     'w51_RGB_405-360-335.png',
+                     'w51_RGB_480-405-187_scaled.png',
+                     'w51_RGB_480-410-405.png',
+                     'SgrB2_2550_770_480_avm.png',
+                     'Cloudef_RGB_4802-3602-2102.png',
+                     'SGRC_RGB_480-360-212.png',
+                     'cloudcJWST_merged_R-F466N_B-F405N_rotated.png', 'SgrB2_RGB_2550-1280-770.png', 'BrickJWST_merged_longwave_narrowband.png', 'BrickJWST_merged_longwave_narrowband_withstars.png', 'BrickJWST_1182p2221_405_356_200.png', 'SgrB2_RGB_480-405-187_scaled.png', 'feathered_MGPS_ALMATCTE7m.png', 'MUSTANG_12m_feather_noaxes.png', 'rgb_final_uncropped.png', 'SgrB2M_RGB.png', 'SgrB2N_RGB.png']:
 
         try:
             avm = pyavm.AVM.from_image(filename)
