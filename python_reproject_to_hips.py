@@ -63,10 +63,12 @@ def main():
 
         # Convert black pixels to transparent
         print(f"Converting black pixels to transparent for {filename}")
-        filename_transparent = convert_black_to_transparent(filename)
+        filename_transparent = filename.replace('.png', '_transparent.png').replace('.jpg', '_transparent.jpg')
+        if not os.path.exists(filename_transparent):
+            filename_transparent = convert_black_to_transparent(filename)
 
-        # Copy AVM metadata to the transparent version
-        avm.embed(filename_transparent, filename_transparent)
+            # Copy AVM metadata to the transparent version
+            avm.embed(filename_transparent, filename_transparent)
 
         # Use the transparent version for processing
         processing_filename = filename_transparent
@@ -126,7 +128,7 @@ def main():
 
     if os.path.exists('jwst_cmz_hips'):
         shutil.rmtree('jwst_cmz_hips')
-    coadd_hips(['cloudcJWST_merged_R-F466N_B-F405N_rotated_hips',
+    coadd_hips(['cloudcJWST_merged_R-F466N_B-F405N_rotated_transparent_noalpha_hips',
                 'SgrB2_2550_770_480_avm_hips',
                 'SgrB2_RGB_480-405-187_scaled_hips',
                 'Cloudef_RGB_4802-3602-2102_hips',
@@ -134,8 +136,8 @@ def main():
                 'BrickJWST_merged_longwave_narrowband_hips',
                 'ArchesQuintuplet_RGB_323-average-212_log_hips',
                 'Sickle_RGB_1500-1130-770_hips',
-                'SgrA_RGB_NIRCam_444-323-212_hips',
-                'SgrA_RGB_MIRI_1500-1000-560_hips',
+                'SgrA_RGB_NIRCam_444-323-212_transparent_noalpha_hips',
+                'SgrA_RGB_MIRI_1500-1000-560_transparent_noalpha_hips',
                 ],
                'jwst_cmz_hips')
 
