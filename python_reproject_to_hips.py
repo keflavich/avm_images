@@ -52,15 +52,6 @@ def main():
             print(f"No XMP packet found for {filename}")
             continue
 
-        output_directory = filename.replace('.png', '_hips').replace('.jpg', '_hips')
-
-        if os.path.exists(output_directory):
-            print(f"Found existing directory; skipping {filename}")
-            continue
-            #shutil.rmtree(output_directory)
-
-        print(filename, output_directory, np.array(PIL.Image.open(filename)).shape ) #pyavm.AVM.from_image(filename))
-
         # Convert black pixels to transparent
         print(f"Converting black pixels to transparent for {filename}")
         filename_transparent = filename.replace('.png', '_transparent.png').replace('.jpg', '_transparent.jpg')
@@ -73,28 +64,39 @@ def main():
         # Use the transparent version for processing
         processing_filename = filename_transparent
 
-        if np.array(PIL.Image.open(processing_filename)).shape[2] == 4:
-            print("RGBA image")
-            filename_noalpha = processing_filename.replace('.png', '_noalpha.png').replace('.jpg', '_noalpha.jpg')
-            if os.path.exists(filename_noalpha):
-                processing_filename = filename_noalpha
-                print(f"Found existing no-alpha image {processing_filename}")
-            else:
-                # Convert RGBA to RGB by dropping alpha channel
-                img = PIL.Image.open(processing_filename)
-                img_rgb = img.convert('RGB')
-                img_rgb.save(filename_noalpha)
+        output_directory = processing_filename.replace('.png', '_hips').replace('.jpg', '_hips')
 
-                # restore AVM
-                avm = pyavm.AVM.from_image(filename)
-                avm.embed(filename_noalpha, filename_noalpha)
+        if os.path.exists(output_directory):
+            print(f"Found existing directory; skipping {filename}")
+            continue
+            #shutil.rmtree(output_directory)
 
-                assert np.array(PIL.Image.open(filename_noalpha)).shape[2] == 3
+        print(filename, processing_filename, output_directory, np.array(PIL.Image.open(processing_filename)).shape ) #pyavm.AVM.from_image(filename))
 
-                # Update filename to use the no-alpha version
-                processing_filename = filename_noalpha
-                output_directory = processing_filename.replace('.png', '_hips').replace('.jpg', '_hips')
-                print(f"Converted RGBA to RGB: {processing_filename}")
+
+        # PRESERVE transparency...
+        # if np.array(PIL.Image.open(processing_filename)).shape[2] == 4:
+        #     print("RGBA image")
+        #     filename_noalpha = processing_filename.replace('.png', '_noalpha.png').replace('.jpg', '_noalpha.jpg')
+        #     if os.path.exists(filename_noalpha):
+        #         processing_filename = filename_noalpha
+        #         print(f"Found existing no-alpha image {processing_filename}")
+        #     else:
+        #         # Convert RGBA to RGB by dropping alpha channel
+        #         img = PIL.Image.open(processing_filename)
+        #         img_rgb = img.convert('RGB')
+        #         img_rgb.save(filename_noalpha)
+
+        #         # restore AVM
+        #         avm = pyavm.AVM.from_image(filename)
+        #         avm.embed(filename_noalpha, filename_noalpha)
+
+        #         assert np.array(PIL.Image.open(filename_noalpha)).shape[2] == 3
+
+        #         # Update filename to use the no-alpha version
+        #         processing_filename = filename_noalpha
+        #         output_directory = processing_filename.replace('.png', '_hips').replace('.jpg', '_hips')
+        #         print(f"Converted RGBA to RGB: {processing_filename}")
 
         #print(filename, output_directory, np.array(PIL.Image.open(filename)).shape) #pyavm.AVM.from_image(filename))
 
@@ -103,19 +105,19 @@ def main():
                     level=None,
                     reproject_function=reproject_interp,
                     output_directory=output_directory,
-                    threaded=True,
+                    threads=8,
                     progress_bar=tqdm)
 
-    output_directory = 'rgb_final_uncropped_hips'
-    if not os.path.exists(output_directory):
-        raise("rgb_final_uncropped.jpg did not reproject, which is nonsense. Forcing.")
-        filename = 'rgb_final_uncropped.jpg'
-        reproject_to_hips(filename,
-                    coord_system_out='galactic',
-                    level=6,
-                    reproject_function=reproject_interp,
-                    output_directory=output_directory,
-                    progress_bar=tqdm)
+    # output_directory = 'rgb_final_uncropped_hips'
+    # if not os.path.exists(output_directory):
+    #     raise("rgb_final_uncropped.jpg did not reproject, which is nonsense. Forcing.")
+    #     filename = 'rgb_final_uncropped.jpg'
+    #     reproject_to_hips(filename,
+    #                 coord_system_out='galactic',
+    #                 level=6,
+    #                 reproject_function=reproject_interp,
+    #                 output_directory=output_directory,
+    #                 progress_bar=tqdm)
 
 
     from reproject.hips import coadd_hips
@@ -128,7 +130,7 @@ def main():
 
     if os.path.exists('jwst_cmz_hips'):
         shutil.rmtree('jwst_cmz_hips')
-    coadd_hips(['cloudcJWST_merged_R-F466N_B-F405N_rotated_transparent_noalpha_hips',
+    coadd_hips(['cloudcJWST_merged_R-F466N_B-F405N_rotated_transparent_hips',
                 'SgrB2_2550_770_480_avm_hips',
                 'SgrB2_RGB_480-405-187_scaled_hips',
                 'Cloudef_RGB_4802-3602-2102_hips',
@@ -136,8 +138,8 @@ def main():
                 'BrickJWST_merged_longwave_narrowband_hips',
                 'ArchesQuintuplet_RGB_323-average-212_log_hips',
                 'Sickle_RGB_1500-1130-770_hips',
-                'SgrA_RGB_NIRCam_444-323-212_transparent_noalpha_hips',
-                'SgrA_RGB_MIRI_1500-1000-560_transparent_noalpha_hips',
+                'SgrA_RGB_NIRCam_444-323-212_transparent_hips',
+                'SgrA_RGB_MIRI_1500-1000-560_transparent_hips',
                 ],
                'jwst_cmz_hips')
 
