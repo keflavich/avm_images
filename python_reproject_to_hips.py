@@ -61,7 +61,12 @@ def convert_black_to_transparent(image_path):
 
     # Save with transparent suffix
     transparent_path = image_path.replace('.png', '_transparent.png').replace('.jpg', '_transparent.jpg')
+    if transparent_path.endswith('_transparent.jpg'):
+        transparent_path = transparent_path.replace('_transparent.jpg', '_transparent.png')
     img_transparent.save(transparent_path)
+
+    avm = pyavm.AVM.from_image(image_path)
+    avm.embed(transparent_path, transparent_path)
 
     return transparent_path
 
@@ -77,6 +82,11 @@ def main():
                      'SgrB2_2550_770_480_avm.png',
                      'Cloudef_RGB_4802-3602-2102.png',
                      'SGRC_RGB_480-360-212.png',
+                     'wd2_nircam_RGB_410-405-335_asinh_max99.5.png',
+                     'wd2_nircam_RGB_212-200-187_asinh_max99.png',
+                     'wd2_RGB_1000-770-410_asinh_max99.5.png',
+                     'wd2_RGB_1130-770-164162_sub_asinh_max99.5.png',
+                     'heic1509a.jpg',
                      'cloudcJWST_merged_R-F466N_B-F405N_rotated.png', 'SgrB2_RGB_2550-1280-770.png', 'BrickJWST_merged_longwave_narrowband.png', 'BrickJWST_merged_longwave_narrowband_withstars.png', 'BrickJWST_1182p2221_405_356_200.png', 'SgrB2_RGB_480-405-187_scaled.png', 'feathered_MGPS_ALMATCTE7m.png', 'MUSTANG_12m_feather_noaxes.png', 'rgb_final_uncropped.png', 'SgrB2M_RGB.png', 'SgrB2N_RGB.png']:
 
         try:
