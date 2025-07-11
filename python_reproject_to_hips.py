@@ -75,6 +75,7 @@ def main():
                      'SgrA_RGB_MIRI_1500-1000-560.png',
                      'SgrA_RGB_NIRCam_444-323-212.png',
                      'ArchesQuintuplet_RGB_323-average-212_log.png',
+                     'Brick_RGB_444-356-200.png',
                      'w51_RGB_162-210-187.png',
                      'w51_RGB_405-360-335.png',
                      'w51_RGB_480-405-187_scaled.png',
