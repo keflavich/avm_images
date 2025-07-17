@@ -18,7 +18,7 @@ def reproject_image(filename, output_directory):
         avm = pyavm.AVM.from_image(filename)
     except pyavm.exceptions.NoXMPPacketFound:
         print(f"No XMP packet found for {filename}")
-        continue
+        return
 
     output_hips = os.path.join(output_directory,
                                filename.replace('.png', '_hips').replace('.jpg', '_hips'))
