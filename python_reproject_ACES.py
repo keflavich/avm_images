@@ -25,15 +25,15 @@ def reproject_image(filename, output_directory):
 
     if os.path.exists(output_hips):
         print(f"Found existing directory {output_hips}; skipping {filename}")
-        continue
 
-    reproject_to_hips(filename,
-                coord_system_out='galactic',
-                level=None,
-                reproject_function=reproject_interp,
-                output_directory=output_hips,
-                threads=8,
-                progress_bar=tqdm)
+    else:
+        reproject_to_hips(filename,
+                    coord_system_out='galactic',
+                    level=None,
+                    reproject_function=reproject_interp,
+                    output_directory=output_hips,
+                    threads=8,
+                    progress_bar=tqdm)
 
 def main():
     filelist = glob.glob('/orange/adamginsburg/ACES/mosaics/cubes/moments/*max.png') + glob.glob('/orange/adamginsburg/ACES/mosaics/cubes/moments/*hlsig_dilated_masked_mom0.png')
