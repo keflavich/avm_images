@@ -87,6 +87,7 @@ def main():
                      'wd2_nircam_RGB_212-200-187_asinh_max99.png',
                      'wd2_RGB_1000-770-410_asinh_max99.5.png',
                      'wd2_RGB_1130-770-164162_sub_asinh_max99.5.png',
+                     'wd2_miri_RGB_1130-1000-770_log_max99.9.png',
                      'heic1509a.jpg',
                      'cloudcJWST_merged_R-F466N_B-F405N_rotated.png', 'SgrB2_RGB_2550-1280-770.png', 'BrickJWST_merged_longwave_narrowband.png', 'BrickJWST_merged_longwave_narrowband_withstars.png', 'BrickJWST_1182p2221_405_356_200.png', 'SgrB2_RGB_480-405-187_scaled.png', 'feathered_MGPS_ALMATCTE7m.png', 'MUSTANG_12m_feather_noaxes.png', 'rgb_final_uncropped.png', 'SgrB2M_RGB.png', 'SgrB2N_RGB.png']:
 
@@ -179,6 +180,7 @@ def main():
                 'SgrB2_RGB_480-405-187_scaled_transparent_hips',
                 'Cloudef_RGB_4802-3602-2102_transparent_hips',
                 'SGRC_RGB_480-360-212_transparent_hips',
+                'Brick_RGB_444-356-200_transparent_hips',
                 'BrickJWST_merged_longwave_narrowband_transparent_hips',
                 'ArchesQuintuplet_RGB_323-average-212_log_transparent_hips',
                 'Sickle_RGB_1500-1130-770_transparent_hips',
