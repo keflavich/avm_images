@@ -38,7 +38,8 @@ def reproject_image(filename, output_directory):
 def main():
     filelist = glob.glob('/orange/adamginsburg/ACES/mosaics/cubes/moments/*max.png') + glob.glob('/orange/adamginsburg/ACES/mosaics/cubes/moments/*hlsig_dilated_masked_mom0.png')
     for filename in tqdm(filelist):
-        reproject_image(filename, '/orange/adamginsburg/ACES/mosaics/cubes/moments/hips')
+        print(filename)
+        reproject_image(filename, '/orange/adamginsburg/ACES/mosaics/cubes/moments/hips/')
 
 
 if __name__ == "__main__":
