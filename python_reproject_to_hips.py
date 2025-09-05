@@ -94,6 +94,9 @@ def main():
                      'w51n.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor.png',
                      'w51_RGB_360-335-210.png',
                      'w51_RGB_182-162-140_log.png',
+                     'NGC6334_JWST_colorcomposite.png',
+                     'gc_fullres_6_avm.jpg',
+                     'Quintuplet_RGB_323-average-212_log.png',
                      ]:
 
         try:
@@ -191,6 +194,7 @@ def main():
                 'Sickle_RGB_1500-1130-770_transparent_hips',
                 'SgrA_RGB_NIRCam_444-323-212_transparent_hips',
                 'SgrA_RGB_MIRI_1500-1000-560_transparent_hips',
+                'Quintuplet_RGB_323-average-212_log_transparent_hips',
                 ],
                'jwst_cmz_hips')
 
