@@ -188,13 +188,16 @@ def main():
                 'SgrB2_RGB_480-405-187_scaled_transparent_hips',
                 'Cloudef_RGB_4802-3602-2102_transparent_hips',
                 'SGRC_RGB_480-360-212_transparent_hips',
-                'Brick_RGB_444-356-200_transparent_hips',
-                'BrickJWST_merged_longwave_narrowband_transparent_hips',
                 'ArchesQuintuplet_RGB_323-average-212_log_transparent_hips',
-                'Sickle_RGB_1500-1130-770_transparent_hips',
+                #'Sickle_RGB_1500-1130-770_transparent_hips',
+                'Sickle_RGB_1500-1130-770_hips',
+                'Sickle_RGB_470-444-335_hips',
                 'SgrA_RGB_NIRCam_444-323-212_transparent_hips',
                 'SgrA_RGB_MIRI_1500-1000-560_transparent_hips',
                 'Quintuplet_RGB_323-average-212_log_transparent_hips',
+                'BrickJWST_merged_longwave_narrowband_transparent_hips',
+                'Brick_RGB_444-356-200_transparent_hips',
+
                 ],
                'jwst_cmz_hips')
 
