@@ -184,7 +184,7 @@ def main():
     if os.path.exists('jwst_cmz_hips'):
         shutil.rmtree('jwst_cmz_hips')
     coadd_hips(['cloudcJWST_merged_R-F466N_B-F405N_rotated_transparent_hips',
-                'SgrB2_2550_770_480_avm_transparent_hips',
+                'SgrB2_RGB_2550-1280-770_hips',
                 'SgrB2_RGB_480-405-187_scaled_transparent_hips',
                 'Cloudef_RGB_4802-3602-2102_transparent_hips',
                 'SGRC_RGB_480-360-212_transparent_hips',
