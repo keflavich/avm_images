@@ -89,7 +89,17 @@ def main():
                      'wd2_RGB_1130-770-164162_sub_asinh_max99.5.png',
                      'wd2_miri_RGB_1130-1000-770_log_max99.9.png',
                      'heic1509a.jpg',
-                     'cloudcJWST_merged_R-F466N_B-F405N_rotated.png', 'SgrB2_RGB_2550-1280-770.png', 'BrickJWST_merged_longwave_narrowband.png', 'BrickJWST_merged_longwave_narrowband_withstars.png', 'BrickJWST_1182p2221_405_356_200.png', 'SgrB2_RGB_480-405-187_scaled.png', 'feathered_MGPS_ALMATCTE7m.png', 'MUSTANG_12m_feather_noaxes.png', 'rgb_final_uncropped.png', 'SgrB2M_RGB.png', 'SgrB2N_RGB.png']:
+                     'cloudcJWST_merged_R-F466N_B-F405N_rotated.png',
+                     'SgrB2_RGB_2550-1280-770.png',
+                     'BrickJWST_merged_longwave_narrowband.png',
+                     'BrickJWST_merged_longwave_narrowband_withstars.png',
+                     'BrickJWST_1182p2221_405_356_200.png',
+                     'SgrB2_RGB_480-405-187_scaled.png',
+                     'feathered_MGPS_ALMATCTE7m.png',
+                     'MUSTANG_12m_feather_noaxes.png',
+                     'rgb_final_uncropped.png',
+                     'SgrB2M_RGB.png',
+                     'SgrB2N_RGB.png']:
 
         try:
             avm = pyavm.AVM.from_image(filename)
@@ -186,6 +196,12 @@ def main():
                 'Sickle_RGB_1500-1130-770_transparent_hips',
                 'SgrA_RGB_NIRCam_444-323-212_transparent_hips',
                 'SgrA_RGB_MIRI_1500-1000-560_transparent_hips',
+                # gc2211 NIRCam wide-field GC mosaics — bottom layer (coadd_hips paints last = bottom; per-target layers above remain dominant)
+                'GC2211_o023_F277_asinh_hips',
+                'GC2211_o028_RGB_277-mean-150_asinh_hips',
+                'GC2211_o046_RGB_277-mean-200_asinh_hips',
+                'GC2211_o049_RGB_277-mean-200_asinh_hips',
+                'GC2211_o050_RGB_277-mean-200_asinh_hips',
                 ],
                'jwst_cmz_hips')
 
