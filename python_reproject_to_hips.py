@@ -79,7 +79,6 @@ def main():
                      'w51_RGB_162-210-187.png',
                      'w51_RGB_480-405-187_scaled.png',
                      'w51_RGB_480-410-405.png',
-                     'SgrB2_2550_770_480_avm.png',
                      'Cloudef_RGB_4802-3602-2102.png',
                      'SGRC_RGB_480-360-212.png',
                      'wd2_nircam_RGB_410-405-335_asinh_max99.5.png',
@@ -88,8 +87,16 @@ def main():
                      'wd2_RGB_1130-770-164162_sub_asinh_max99.5.png',
                      'wd2_miri_RGB_1130-1000-770_log_max99.9.png',
                      'heic1509a.jpg',
-<<<<<<< HEAD
-                     'cloudcJWST_merged_R-F466N_B-F405N_rotated.png', 'SgrB2_RGB_2550-1280-770.png', 'BrickJWST_merged_longwave_narrowband.png', 'BrickJWST_merged_longwave_narrowband_withstars.png', 'BrickJWST_1182p2221_405_356_200.png', 'SgrB2_RGB_480-405-187_scaled.png', 'feathered_MGPS_ALMATCTE7m.png', 'MUSTANG_12m_feather_noaxes.png', 'rgb_final_uncropped.png', 'SgrB2M_RGB.png', 'SgrB2N_RGB.png',
+                     'cloudcJWST_merged_R-F466N_B-F405N_rotated.png',
+                     'SgrB2_RGB_2550-1280-770.png',
+                     'BrickJWST_merged_longwave_narrowband.png',
+                     'BrickJWST_merged_longwave_narrowband_withstars.png',
+                     'BrickJWST_1182p2221_405_356_200.png',
+                     'SgrB2_RGB_480-405-187_scaled.png',
+                     'feathered_MGPS_ALMATCTE7m.png',
+                     'MUSTANG_12m_feather_noaxes.png',
+                     'rgb_final_uncropped.png', 'SgrB2M_RGB.png',
+                     'SgrB2N_RGB.png',
                      'w51e2.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor.png',
                      'w51_RGB_405-360-335.png',
                      'w51n.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor.png',
@@ -98,8 +105,6 @@ def main():
                      'NGC6334_JWST_colorcomposite.png',
                      'gc_fullres_6_avm.jpg',
                      'Quintuplet_RGB_323-average-212_log.png',
-                     ]:
-=======
                      'cloudcJWST_merged_R-F466N_B-F405N_rotated.png',
                      'SgrB2_RGB_2550-1280-770.png',
                      'BrickJWST_merged_longwave_narrowband.png',
@@ -111,7 +116,6 @@ def main():
                      'rgb_final_uncropped.png',
                      'SgrB2M_RGB.png',
                      'SgrB2N_RGB.png']:
->>>>>>> origin/hipergator
 
         try:
             avm = pyavm.AVM.from_image(filename)
