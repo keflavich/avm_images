@@ -59,7 +59,11 @@ NIR_LAYERS = [
 
 # All MIRI coverage across the CMZ fields (bottom -> top).
 MIRI_LAYERS = [
-    'CloudC_MIRI_RGB_2550-770-770_transparent_hips',   # cloudc F2550W+F770W
+    # cloud C MIRI = two separate grayscale fields (different pointings):
+    # F2550W from program 2221, F770W from program 2526.  A combined RGB was
+    # wrong (reprojecting one onto the other's grid cropped it to a corner).
+    'CloudC_MIRI_F770W_transparent_hips',              # cloudc F770W (prog 2526)
+    'CloudC_MIRI_F2550W_transparent_hips',             # cloudc F2550W (prog 2221)
     'Brick_RGB_1500-1130-770_transparent_hips',        # brick MIRI
     'SgrB2_RGB_2550-1280-770_transparent_hips',        # sgrb2 full-MIRI F2550W
     'Sickle_RGB_1500-1130-770_transparent_hips',       # sickle MIRI
