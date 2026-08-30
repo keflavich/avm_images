@@ -14,6 +14,14 @@ gc2211 per-OBS HiPS (produced by scripts/gc2211_rgb_images.py) are symlinked
 into this directory and painted as the lowest NIR layers, overwritten by the
 brighter per-target RGB layers above.
 
+Stacking order: `coadd_hips` uses the LAST input directory where inputs overlap
+(reproject/hips/high_level.py: "the last image in the order of
+input_directories is used"), so the lists below run bottom -> top and the
+gc2211 wide-field layers are listed FIRST to sit underneath the per-target RGB
+layers.  (Until 2026-08 they were appended last, which put them on top of the
+per-target layers; jwst_nir_hips needs a rebuild for this ordering to take
+effect.)
+
 Keep the layer lists in sync with python_reproject_to_hips.py.
 """
 
@@ -21,9 +29,10 @@ import os
 import shutil
 from reproject.hips import coadd_hips
 
+from hips_orientation import replace_dir
+
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-os.chdir(HERE)
 
 
 GC2211_HIPS = [
@@ -40,8 +49,8 @@ GC2211_HIPS = [
 ]
 
 
-# NIRCam + NIRISS layers (bottom -> top).
-NIR_LAYERS = [
+# NIRCam + NIRISS layers (bottom -> top; last entry wins on overlap).
+NIR_LAYERS = [name for name, _ in GC2211_HIPS] + [   # NIRCam wide-field, bottom
     'cloudcJWST_merged_R-F466N_B-F405N_rotated_transparent_hips',   # NIRCam
     'SgrB2_RGB_480-405-187_scaled_transparent_hips',                # NIRCam
     'Cloudef_RGB_4802-3602-2102_transparent_hips',                  # NIRCam
@@ -54,12 +63,16 @@ NIR_LAYERS = [
     'ArchesQuintuplet_RGB_323-average-212_log_transparent_hips',    # NIRCam
     'Quintuplet_RGB_323-average-212_log_transparent_hips',          # NIRCam
     'SgrA_RGB_NIRCam_444-323-212_transparent_hips',                 # NIRCam
-] + [name for name, _ in GC2211_HIPS]                              # NIRCam
+]
 
 
-# All MIRI coverage across the CMZ fields (bottom -> top).
+# All MIRI coverage across the CMZ fields (bottom -> top; last wins on overlap).
 MIRI_LAYERS = [
-    'CloudC_MIRI_RGB_2550-770-770_transparent_hips',   # cloudc F2550W+F770W
+    # cloud C MIRI = two separate grayscale fields (different pointings):
+    # F2550W from program 2221, F770W from program 2526.  A combined RGB was
+    # wrong (reprojecting one onto the other's grid cropped it to a corner).
+    'CloudC_MIRI_F770W_transparent_hips',              # cloudc F770W (prog 2526)
+    'CloudC_MIRI_F2550W_transparent_hips',             # cloudc F2550W (prog 2221)
     'Brick_RGB_1500-1130-770_transparent_hips',        # brick MIRI
     'SgrB2_RGB_2550-1280-770_transparent_hips',        # sgrb2 full-MIRI F2550W
     'Sickle_RGB_1500-1130-770_transparent_hips',       # sickle MIRI
@@ -76,21 +89,34 @@ def ensure_symlink(link_name, target):
     print(f"  linked {link_name} -> {target}")
 
 
+def check_layers(layers, ignore=()):
+    """Raise if any input layer is missing, ignoring ones about to be rebuilt.
+
+    Call this before a script starts replacing published layers, so an
+    unsatisfiable coadd fails while the web tree is still intact.
+    """
+    missing = [layer for layer in layers
+               if layer not in ignore and not os.path.isdir(layer)]
+    if missing:
+        raise FileNotFoundError(
+            "Missing layer(s) needed for the coadd: " + ", ".join(missing))
+
+
 def build_coadd(layers, out):
-    for layer in layers:
-        if not os.path.isdir(layer):
-            raise FileNotFoundError(f"Missing layer: {layer}")
-    if os.path.islink(out):
-        os.remove(out)
-    elif os.path.exists(out):
-        print(f"Removing existing {out}")
-        shutil.rmtree(out)
-    print(f"Coadding {len(layers)} layers -> {out}")
-    coadd_hips(layers, out)
+    check_layers(layers)
+    staging = out + ".new"
+    if os.path.exists(staging):
+        shutil.rmtree(staging)
+    print(f"Coadding {len(layers)} layers -> {staging}")
+    coadd_hips(layers, staging)
+    # publish atomically: the live coadd is only removed once its replacement
+    # is complete, so a rebuild opens no 404 window on the deployed page
+    replace_dir(staging, out)
     print(f"Done: {out}")
 
 
 def main():
+    os.chdir(HERE)
     print("Linking gc2211 HiPS into avm_images...")
     for link, target in GC2211_HIPS:
         if not os.path.isdir(target):
