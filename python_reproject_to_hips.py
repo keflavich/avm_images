@@ -215,7 +215,10 @@ def main():
                 'Quintuplet_RGB_323-average-212_log_transparent_hips',
                 'BrickJWST_merged_longwave_narrowband_transparent_hips',
                 'Brick_RGB_444-356-200_transparent_hips',
-                # gc2211 NIRCam wide-field GC mosaics — bottom layer (coadd_hips paints last = bottom; per-target layers above remain dominant)
+                # gc2211 NIRCam wide-field GC mosaics.  coadd_hips uses the LAST
+                # input on overlap, so these are listed last here and therefore
+                # sit ON TOP; rebuild_jwst_cmz_hips.py lists them first, which is
+                # the intended stacking (per-target layers dominant).
                 'GC2211_o023_F277_asinh_hips',
                 'GC2211_o028_RGB_277-mean-150_asinh_hips',
                 'GC2211_o046_RGB_277-mean-200_asinh_hips',

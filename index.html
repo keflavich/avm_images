@@ -30,7 +30,6 @@
     button.survey.active{background:rgba(180,180,255,.2);color:#c0c0ff;border-color:#c0c0ff}
     button.layer-btn.active{border-color:#7fd0ff;color:#fff;
       background:rgba(120,190,255,.22);font-weight:600}
-    button.hips-btn.plain{opacity:.7;font-style:italic}
     button.cat-btn.active{border-color:var(--bc,#ffdd33);color:var(--bc,#ffdd33);
       background:rgba(255,221,51,.15);font-weight:600}
     .mini-btn{font-size:9px;padding:1px 5px;color:#999;border-color:rgba(255,255,255,.2)}
@@ -84,13 +83,12 @@
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn cmz-full-mosaics" data-layer="gc_fullres_6_avm_transparent_hips" title="gc_fullres_6_avm_transparent_hips">gc_fullres_6_avm</button>
-        <button class="layer-btn hips-btn cmz-full-mosaics" data-layer="rgb_final_uncropped_transparent_hips" title="rgb_final_uncropped_transparent_hips">rgb_final_uncropped</button>
-        <button class="layer-btn hips-btn cmz-full-mosaics" data-layer="jwst_cmz_hips" title="jwst_cmz_hips">jwst_cmz</button>
-        <button class="layer-btn hips-btn cmz-full-mosaics active" data-layer="jwst_miri_hips" title="jwst_miri_hips">jwst_miri</button>
-        <button class="layer-btn hips-btn cmz-full-mosaics active" data-layer="jwst_nir_hips" title="jwst_nir_hips">jwst_nir</button>
-        <button class="layer-btn hips-btn cmz-full-mosaics plain" data-layer="rgb_final_uncropped_hips" title="rgb_final_uncropped_hips">rgb_final_uncropped</button>
-        <button class="layer-btn hips-btn cmz-full-mosaics" data-layer="rgb_final_uncropped_noalpha_hips" title="rgb_final_uncropped_noalpha_hips">rgb_final_uncropped_noalpha</button>
+        <button class="layer-btn hips-btn" data-grp="cmz-full-mosaics" data-layer="gc_fullres_6_avm_transparent_hips" title="gc_fullres_6_avm_transparent_hips">gc_fullres_6_avm</button>
+        <button class="layer-btn hips-btn" data-grp="cmz-full-mosaics" data-layer="rgb_final_uncropped_transparent_hips" title="rgb_final_uncropped_transparent_hips">rgb_final_uncropped</button>
+        <button class="layer-btn hips-btn" data-grp="cmz-full-mosaics" data-layer="jwst_cmz_hips" title="jwst_cmz_hips">jwst_cmz</button>
+        <button class="layer-btn hips-btn active" data-grp="cmz-full-mosaics" data-layer="jwst_miri_hips" title="jwst_miri_hips">jwst_miri</button>
+        <button class="layer-btn hips-btn active" data-grp="cmz-full-mosaics" data-layer="jwst_nir_hips" title="jwst_nir_hips">jwst_nir</button>
+        <button class="layer-btn hips-btn" data-grp="cmz-full-mosaics" data-layer="rgb_final_uncropped_noalpha_hips" title="rgb_final_uncropped_noalpha_hips">rgb_final_uncropped_noalpha</button>
       </div>
     </div>
     <div class="section">
@@ -101,56 +99,52 @@
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn brick" data-layer="BrickJWST_1182p2221_405_356_200_transparent_hips" title="BrickJWST_1182p2221_405_356_200_transparent_hips">BrickJWST_1182p2221_405_356_200</button>
-        <button class="layer-btn hips-btn brick" data-layer="BrickJWST_merged_longwave_narrowband_transparent_hips" title="BrickJWST_merged_longwave_narrowband_transparent_hips">BrickJWST_merged_longwave_narrowband</button>
-        <button class="layer-btn hips-btn brick" data-layer="BrickJWST_merged_longwave_narrowband_withstars_transparent_hips" title="BrickJWST_merged_longwave_narrowband_withstars_transparent_hips">BrickJWST_merged_longwave_narrowband_withstars</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_1500-1130-770_transparent_hips" title="Brick_RGB_1500-1130-770_transparent_hips">Brick_RGB_1500-1130-770</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_200-212-182_H2_raw_transparent_hips" title="Brick_RGB_200-212-182_H2_raw_transparent_hips">Brick_RGB_200-212-182_H2_raw</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_200-212-182_H2_sub_transparent_hips" title="Brick_RGB_200-212-182_H2_sub_transparent_hips">Brick_RGB_200-212-182_H2_sub</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_444-356-200_transparent_hips" title="Brick_RGB_444-356-200_transparent_hips">Brick_RGB_444-356-200</button>
-        <button class="layer-btn hips-btn brick plain" data-layer="BrickJWST_1182p2221_405_356_200_hips" title="BrickJWST_1182p2221_405_356_200_hips">BrickJWST_1182p2221_405_356_200</button>
-        <button class="layer-btn hips-btn brick plain" data-layer="BrickJWST_merged_longwave_narrowband_hips" title="BrickJWST_merged_longwave_narrowband_hips">BrickJWST_merged_longwave_narrowband</button>
-        <button class="layer-btn hips-btn brick plain" data-layer="BrickJWST_merged_longwave_narrowband_withstars_hips" title="BrickJWST_merged_longwave_narrowband_withstars_hips">BrickJWST_merged_longwave_narrowband_withstars</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_BGR_212-405-466_hips" title="Brick_BGR_212-405-466_hips">Brick_BGR_212-405-466</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_BGR_405-405466-466_hips" title="Brick_BGR_405-405466-466_hips">Brick_BGR_405-405466-466</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_BGR_410-410466-466_hips" title="Brick_BGR_410-410466-466_hips">Brick_BGR_410-410466-466</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_1130-466-410_hips" title="Brick_RGB_1130-466-410_hips">Brick_RGB_1130-466-410</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_1130-770-466_hips" title="Brick_RGB_1130-770-466_hips">Brick_RGB_1130-770-466</button>
-        <button class="layer-btn hips-btn brick plain" data-layer="Brick_RGB_1500-1130-770_hips" title="Brick_RGB_1500-1130-770_hips">Brick_RGB_1500-1130-770</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_1500-770-444_hips" title="Brick_RGB_1500-770-444_hips">Brick_RGB_1500-770-444</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_187-182-115_hips" title="Brick_RGB_187-182-115_hips">Brick_RGB_187-182-115</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_200-187-182_hips" title="Brick_RGB_200-187-182_hips">Brick_RGB_200-187-182</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_200-212-182_H2excess_hips" title="Brick_RGB_200-212-182_H2excess_hips">Brick_RGB_200-212-182_H2excess</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_212-187-115_hips" title="Brick_RGB_212-187-115_hips">Brick_RGB_212-187-115</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_212-200-187_hips" title="Brick_RGB_212-200-187_hips">Brick_RGB_212-200-187</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_2550-1130-466_hips" title="Brick_RGB_2550-1130-466_hips">Brick_RGB_2550-1130-466</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_2550-1500-1130_hips" title="Brick_RGB_2550-1500-1130_hips">Brick_RGB_2550-1500-1130</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_356-200-182_hips" title="Brick_RGB_356-200-182_hips">Brick_RGB_356-200-182</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_356-212-200_hips" title="Brick_RGB_356-212-200_hips">Brick_RGB_356-212-200</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_405-212-187_hips" title="Brick_RGB_405-212-187_hips">Brick_RGB_405-212-187</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_405-356-212_hips" title="Brick_RGB_405-356-212_hips">Brick_RGB_405-356-212</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_410-356-200_hips" title="Brick_RGB_410-356-200_hips">Brick_RGB_410-356-200</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_410-405-356_hips" title="Brick_RGB_410-405-356_hips">Brick_RGB_410-405-356</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_444-405-212_hips" title="Brick_RGB_444-405-212_hips">Brick_RGB_444-405-212</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_444-410-405_hips" title="Brick_RGB_444-410-405_hips">Brick_RGB_444-410-405</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_466-410-356_hips" title="Brick_RGB_466-410-356_hips">Brick_RGB_466-410-356</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_466-444-410_hips" title="Brick_RGB_466-444-410_hips">Brick_RGB_466-444-410</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_770-444-405_hips" title="Brick_RGB_770-444-405_hips">Brick_RGB_770-444-405</button>
-        <button class="layer-btn hips-btn brick" data-layer="Brick_RGB_770-466-444_hips" title="Brick_RGB_770-466-444_hips">Brick_RGB_770-466-444</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="BrickJWST_1182p2221_405_356_200_transparent_hips" title="BrickJWST_1182p2221_405_356_200_transparent_hips">BrickJWST_1182p2221_405_356_200</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="BrickJWST_merged_longwave_narrowband_transparent_hips" title="BrickJWST_merged_longwave_narrowband_transparent_hips">BrickJWST_merged_longwave_narrowband</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="BrickJWST_merged_longwave_narrowband_withstars_transparent_hips" title="BrickJWST_merged_longwave_narrowband_withstars_transparent_hips">BrickJWST_merged_longwave_narrowband_withstars</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_1500-1130-770_transparent_hips" title="Brick_RGB_1500-1130-770_transparent_hips">Brick_RGB_1500-1130-770</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_200-212-182_H2_raw_transparent_hips" title="Brick_RGB_200-212-182_H2_raw_transparent_hips">Brick_RGB_200-212-182_H2_raw</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_200-212-182_H2_sub_transparent_hips" title="Brick_RGB_200-212-182_H2_sub_transparent_hips">Brick_RGB_200-212-182_H2_sub</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_444-356-200_transparent_hips" title="Brick_RGB_444-356-200_transparent_hips">Brick_RGB_444-356-200</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="BRICK200_RESTORED_212-187-115_hips" title="BRICK200_RESTORED_212-187-115_hips">BRICK200_RESTORED_212-187-115</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="BRICK200_UNRESTORED_466-410-356_hips" title="BRICK200_UNRESTORED_466-410-356_hips">BRICK200_UNRESTORED_466-410-356</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_BGR_212-405-466_hips" title="Brick_BGR_212-405-466_hips">Brick_BGR_212-405-466</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_BGR_405-405466-466_hips" title="Brick_BGR_405-405466-466_hips">Brick_BGR_405-405466-466</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_BGR_410-410466-466_hips" title="Brick_BGR_410-410466-466_hips">Brick_BGR_410-410466-466</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_1130-466-410_hips" title="Brick_RGB_1130-466-410_hips">Brick_RGB_1130-466-410</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_1130-770-466_hips" title="Brick_RGB_1130-770-466_hips">Brick_RGB_1130-770-466</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_1500-770-444_hips" title="Brick_RGB_1500-770-444_hips">Brick_RGB_1500-770-444</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_187-182-115_hips" title="Brick_RGB_187-182-115_hips">Brick_RGB_187-182-115</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_200-187-182_hips" title="Brick_RGB_200-187-182_hips">Brick_RGB_200-187-182</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_200-212-182_H2excess_hips" title="Brick_RGB_200-212-182_H2excess_hips">Brick_RGB_200-212-182_H2excess</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_212-187-115_hips" title="Brick_RGB_212-187-115_hips">Brick_RGB_212-187-115</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_212-200-187_hips" title="Brick_RGB_212-200-187_hips">Brick_RGB_212-200-187</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_2550-1130-466_hips" title="Brick_RGB_2550-1130-466_hips">Brick_RGB_2550-1130-466</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_2550-1500-1130_hips" title="Brick_RGB_2550-1500-1130_hips">Brick_RGB_2550-1500-1130</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_356-200-182_hips" title="Brick_RGB_356-200-182_hips">Brick_RGB_356-200-182</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_356-212-200_hips" title="Brick_RGB_356-212-200_hips">Brick_RGB_356-212-200</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_405-212-187_hips" title="Brick_RGB_405-212-187_hips">Brick_RGB_405-212-187</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_405-356-212_hips" title="Brick_RGB_405-356-212_hips">Brick_RGB_405-356-212</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_410-356-200_hips" title="Brick_RGB_410-356-200_hips">Brick_RGB_410-356-200</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_410-405-356_hips" title="Brick_RGB_410-405-356_hips">Brick_RGB_410-405-356</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_444-405-212_hips" title="Brick_RGB_444-405-212_hips">Brick_RGB_444-405-212</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_444-410-405_hips" title="Brick_RGB_444-410-405_hips">Brick_RGB_444-410-405</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_466-410-356_hips" title="Brick_RGB_466-410-356_hips">Brick_RGB_466-410-356</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_466-444-410_hips" title="Brick_RGB_466-444-410_hips">Brick_RGB_466-444-410</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_770-444-405_hips" title="Brick_RGB_770-444-405_hips">Brick_RGB_770-444-405</button>
+        <button class="layer-btn hips-btn" data-grp="brick" data-layer="Brick_RGB_770-466-444_hips" title="Brick_RGB_770-466-444_hips">Brick_RGB_770-466-444</button>
       </div>
     </div>
     <div class="section">
       <div class="section-label">Sgr A*
         <span class="grp-mini">
-          <button class="mini-btn" data-grp="sgr-a*" data-on="1">all</button>
-          <button class="mini-btn" data-grp="sgr-a*" data-on="0">none</button>
+          <button class="mini-btn" data-grp="sgr-a" data-on="1">all</button>
+          <button class="mini-btn" data-grp="sgr-a" data-on="0">none</button>
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn sgr-a*" data-layer="SgrA_RGB_MIRI_1500-1000-560_transparent_hips" title="SgrA_RGB_MIRI_1500-1000-560_transparent_hips">SgrA_RGB_MIRI_1500-1000-560</button>
-        <button class="layer-btn hips-btn sgr-a*" data-layer="SgrA_RGB_NIRCam_444-323-212_transparent_hips" title="SgrA_RGB_NIRCam_444-323-212_transparent_hips">SgrA_RGB_NIRCam_444-323-212</button>
-        <button class="layer-btn hips-btn sgr-a* plain" data-layer="SgrA_RGB_MIRI_1500-1000-560_hips" title="SgrA_RGB_MIRI_1500-1000-560_hips">SgrA_RGB_MIRI_1500-1000-560</button>
-        <button class="layer-btn hips-btn sgr-a* plain" data-layer="SgrA_RGB_NIRCam_444-323-212_hips" title="SgrA_RGB_NIRCam_444-323-212_hips">SgrA_RGB_NIRCam_444-323-212</button>
+        <button class="layer-btn hips-btn" data-grp="sgr-a" data-layer="SgrA_RGB_MIRI_1500-1000-560_transparent_hips" title="SgrA_RGB_MIRI_1500-1000-560_transparent_hips">SgrA_RGB_MIRI_1500-1000-560</button>
+        <button class="layer-btn hips-btn" data-grp="sgr-a" data-layer="SgrA_RGB_NIRCam_444-323-212_transparent_hips" title="SgrA_RGB_NIRCam_444-323-212_transparent_hips">SgrA_RGB_NIRCam_444-323-212</button>
       </div>
     </div>
     <div class="section">
@@ -161,29 +155,23 @@
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn sgr-b2" data-layer="SgrB2M_RGB_transparent_hips" title="SgrB2M_RGB_transparent_hips">SgrB2M_RGB</button>
-        <button class="layer-btn hips-btn sgr-b2" data-layer="SgrB2N_RGB_transparent_hips" title="SgrB2N_RGB_transparent_hips">SgrB2N_RGB</button>
-        <button class="layer-btn hips-btn sgr-b2" data-layer="SgrB2_2550_770_480_avm_transparent_hips" title="SgrB2_2550_770_480_avm_transparent_hips">SgrB2_2550_770_480_avm</button>
-        <button class="layer-btn hips-btn sgr-b2" data-layer="SgrB2_RGB_2550-1280-770_transparent_hips" title="SgrB2_RGB_2550-1280-770_transparent_hips">SgrB2_RGB_2550-1280-770</button>
-        <button class="layer-btn hips-btn sgr-b2" data-layer="SgrB2_RGB_480-405-187_scaled_transparent_hips" title="SgrB2_RGB_480-405-187_scaled_transparent_hips">SgrB2_RGB_480-405-187_scaled</button>
-        <button class="layer-btn hips-btn sgr-b2 plain" data-layer="SgrB2M_RGB_hips" title="SgrB2M_RGB_hips">SgrB2M_RGB</button>
-        <button class="layer-btn hips-btn sgr-b2 plain" data-layer="SgrB2N_RGB_hips" title="SgrB2N_RGB_hips">SgrB2N_RGB</button>
-        <button class="layer-btn hips-btn sgr-b2 plain" data-layer="SgrB2_2550_770_480_avm_hips" title="SgrB2_2550_770_480_avm_hips">SgrB2_2550_770_480_avm</button>
-        <button class="layer-btn hips-btn sgr-b2 plain" data-layer="SgrB2_RGB_2550-1280-770_hips" title="SgrB2_RGB_2550-1280-770_hips">SgrB2_RGB_2550-1280-770</button>
-        <button class="layer-btn hips-btn sgr-b2 plain" data-layer="SgrB2_RGB_480-405-187_scaled_hips" title="SgrB2_RGB_480-405-187_scaled_hips">SgrB2_RGB_480-405-187_scaled</button>
+        <button class="layer-btn hips-btn" data-grp="sgr-b2" data-layer="SgrB2M_RGB_transparent_hips" title="SgrB2M_RGB_transparent_hips">SgrB2M_RGB</button>
+        <button class="layer-btn hips-btn" data-grp="sgr-b2" data-layer="SgrB2N_RGB_transparent_hips" title="SgrB2N_RGB_transparent_hips">SgrB2N_RGB</button>
+        <button class="layer-btn hips-btn" data-grp="sgr-b2" data-layer="SgrB2_2550_770_480_avm_transparent_hips" title="SgrB2_2550_770_480_avm_transparent_hips">SgrB2_2550_770_480_avm</button>
+        <button class="layer-btn hips-btn" data-grp="sgr-b2" data-layer="SgrB2_RGB_2550-1280-770_transparent_hips" title="SgrB2_RGB_2550-1280-770_transparent_hips">SgrB2_RGB_2550-1280-770</button>
+        <button class="layer-btn hips-btn" data-grp="sgr-b2" data-layer="SgrB2_RGB_480-405-187_scaled_transparent_hips" title="SgrB2_RGB_480-405-187_scaled_transparent_hips">SgrB2_RGB_480-405-187_scaled</button>
       </div>
     </div>
     <div class="section">
       <div class="section-label">Sgr C (NIRCam/NIRISS)
         <span class="grp-mini">
-          <button class="mini-btn" data-grp="sgr-c-nircamniriss" data-on="1">all</button>
-          <button class="mini-btn" data-grp="sgr-c-nircamniriss" data-on="0">none</button>
+          <button class="mini-btn" data-grp="sgr-c-nircam-niriss" data-on="1">all</button>
+          <button class="mini-btn" data-grp="sgr-c-nircam-niriss" data-on="0">none</button>
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn sgr-c-nircamniriss" data-layer="SGRC_NIRISS_RGB_480-356-200_transparent_hips" title="SGRC_NIRISS_RGB_480-356-200_transparent_hips">SGRC_NIRISS_RGB_480-356-200</button>
-        <button class="layer-btn hips-btn sgr-c-nircamniriss" data-layer="SGRC_RGB_480-360-212_transparent_hips" title="SGRC_RGB_480-360-212_transparent_hips">SGRC_RGB_480-360-212</button>
-        <button class="layer-btn hips-btn sgr-c-nircamniriss plain" data-layer="SGRC_RGB_480-360-212_hips" title="SGRC_RGB_480-360-212_hips">SGRC_RGB_480-360-212</button>
+        <button class="layer-btn hips-btn" data-grp="sgr-c-nircam-niriss" data-layer="SGRC_NIRISS_RGB_480-356-200_transparent_hips" title="SGRC_NIRISS_RGB_480-356-200_transparent_hips">SGRC_NIRISS_RGB_480-356-200</button>
+        <button class="layer-btn hips-btn" data-grp="sgr-c-nircam-niriss" data-layer="SGRC_RGB_480-360-212_transparent_hips" title="SGRC_RGB_480-360-212_transparent_hips">SGRC_RGB_480-360-212</button>
       </div>
     </div>
     <div class="section">
@@ -194,22 +182,20 @@
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn cloud-c" data-layer="CloudC_MIRI_F2550W_transparent_hips" title="CloudC_MIRI_F2550W_transparent_hips">CloudC_MIRI_F2550W</button>
-        <button class="layer-btn hips-btn cloud-c" data-layer="CloudC_MIRI_F770W_transparent_hips" title="CloudC_MIRI_F770W_transparent_hips">CloudC_MIRI_F770W</button>
-        <button class="layer-btn hips-btn cloud-c" data-layer="cloudcJWST_merged_R-F466N_B-F405N_rotated_transparent_hips" title="cloudcJWST_merged_R-F466N_B-F405N_rotated_transparent_hips">cloudcJWST_merged_R-F466N_B-F405N_rotated</button>
-        <button class="layer-btn hips-btn cloud-c plain" data-layer="cloudcJWST_merged_R-F466N_B-F405N_rotated_hips" title="cloudcJWST_merged_R-F466N_B-F405N_rotated_hips">cloudcJWST_merged_R-F466N_B-F405N_rotated</button>
+        <button class="layer-btn hips-btn" data-grp="cloud-c" data-layer="CloudC_MIRI_F2550W_transparent_hips" title="CloudC_MIRI_F2550W_transparent_hips">CloudC_MIRI_F2550W</button>
+        <button class="layer-btn hips-btn" data-grp="cloud-c" data-layer="CloudC_MIRI_F770W_transparent_hips" title="CloudC_MIRI_F770W_transparent_hips">CloudC_MIRI_F770W</button>
+        <button class="layer-btn hips-btn" data-grp="cloud-c" data-layer="cloudcJWST_merged_R-F466N_B-F405N_rotated_transparent_hips" title="cloudcJWST_merged_R-F466N_B-F405N_rotated_transparent_hips">cloudcJWST_merged_R-F466N_B-F405N_rotated</button>
       </div>
     </div>
     <div class="section">
       <div class="section-label">Cloud e/f
         <span class="grp-mini">
-          <button class="mini-btn" data-grp="cloud-ef" data-on="1">all</button>
-          <button class="mini-btn" data-grp="cloud-ef" data-on="0">none</button>
+          <button class="mini-btn" data-grp="cloud-e-f" data-on="1">all</button>
+          <button class="mini-btn" data-grp="cloud-e-f" data-on="0">none</button>
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn cloud-ef" data-layer="Cloudef_RGB_4802-3602-2102_transparent_hips" title="Cloudef_RGB_4802-3602-2102_transparent_hips">Cloudef_RGB_4802-3602-2102</button>
-        <button class="layer-btn hips-btn cloud-ef plain" data-layer="Cloudef_RGB_4802-3602-2102_hips" title="Cloudef_RGB_4802-3602-2102_hips">Cloudef_RGB_4802-3602-2102</button>
+        <button class="layer-btn hips-btn" data-grp="cloud-e-f" data-layer="Cloudef_RGB_4802-3602-2102_transparent_hips" title="Cloudef_RGB_4802-3602-2102_transparent_hips">Cloudef_RGB_4802-3602-2102</button>
       </div>
     </div>
     <div class="section">
@@ -220,32 +206,34 @@
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn sickle" data-layer="Sickle_RGB_1500-1130-770_transparent_hips" title="Sickle_RGB_1500-1130-770_transparent_hips">Sickle_RGB_1500-1130-770</button>
-        <button class="layer-btn hips-btn sickle" data-layer="Sickle_RGB_1130-770-480_hips" title="Sickle_RGB_1130-770-480_hips">Sickle_RGB_1130-770-480</button>
-        <button class="layer-btn hips-btn sickle" data-layer="Sickle_RGB_1130-770-480_log_hips" title="Sickle_RGB_1130-770-480_log_hips">Sickle_RGB_1130-770-480_log</button>
-        <button class="layer-btn hips-btn sickle plain" data-layer="Sickle_RGB_1500-1130-770_hips" title="Sickle_RGB_1500-1130-770_hips">Sickle_RGB_1500-1130-770</button>
-        <button class="layer-btn hips-btn sickle" data-layer="Sickle_RGB_1500-1130-770_log_hips" title="Sickle_RGB_1500-1130-770_log_hips">Sickle_RGB_1500-1130-770_log</button>
-        <button class="layer-btn hips-btn sickle" data-layer="Sickle_RGB_335-210-187_hips" title="Sickle_RGB_335-210-187_hips">Sickle_RGB_335-210-187</button>
-        <button class="layer-btn hips-btn sickle" data-layer="Sickle_RGB_335-210-187_log_hips" title="Sickle_RGB_335-210-187_log_hips">Sickle_RGB_335-210-187_log</button>
-        <button class="layer-btn hips-btn sickle" data-layer="Sickle_RGB_470-335-210_hips" title="Sickle_RGB_470-335-210_hips">Sickle_RGB_470-335-210</button>
-        <button class="layer-btn hips-btn sickle" data-layer="Sickle_RGB_470-335-210_log_hips" title="Sickle_RGB_470-335-210_log_hips">Sickle_RGB_470-335-210_log</button>
-        <button class="layer-btn hips-btn sickle" data-layer="Sickle_RGB_480-470-335_hips" title="Sickle_RGB_480-470-335_hips">Sickle_RGB_480-470-335</button>
-        <button class="layer-btn hips-btn sickle" data-layer="Sickle_RGB_480-470-335_log_hips" title="Sickle_RGB_480-470-335_log_hips">Sickle_RGB_480-470-335_log</button>
-        <button class="layer-btn hips-btn sickle" data-layer="Sickle_RGB_770-480-470_hips" title="Sickle_RGB_770-480-470_hips">Sickle_RGB_770-480-470</button>
-        <button class="layer-btn hips-btn sickle" data-layer="Sickle_RGB_770-480-470_log_hips" title="Sickle_RGB_770-480-470_log_hips">Sickle_RGB_770-480-470_log</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_1500-1130-770_transparent_hips" title="Sickle_RGB_1500-1130-770_transparent_hips">Sickle_RGB_1500-1130-770</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_1130-770-480_hips" title="Sickle_RGB_1130-770-480_hips">Sickle_RGB_1130-770-480</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_1130-770-480_log_hips" title="Sickle_RGB_1130-770-480_log_hips">Sickle_RGB_1130-770-480_log</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_1500-1130-770_log_hips" title="Sickle_RGB_1500-1130-770_log_hips">Sickle_RGB_1500-1130-770_log</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_1500-1130-770_restored_hips" title="Sickle_RGB_1500-1130-770_restored_hips">Sickle_RGB_1500-1130-770_restored</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_335-210-187_hips" title="Sickle_RGB_335-210-187_hips">Sickle_RGB_335-210-187</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_335-210-187_log_hips" title="Sickle_RGB_335-210-187_log_hips">Sickle_RGB_335-210-187_log</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_470-335-210_hips" title="Sickle_RGB_470-335-210_hips">Sickle_RGB_470-335-210</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_470-335-210_log_hips" title="Sickle_RGB_470-335-210_log_hips">Sickle_RGB_470-335-210_log</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_480-470-335_hips" title="Sickle_RGB_480-470-335_hips">Sickle_RGB_480-470-335</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_480-470-335_log_hips" title="Sickle_RGB_480-470-335_log_hips">Sickle_RGB_480-470-335_log</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_770-480-470_hips" title="Sickle_RGB_770-480-470_hips">Sickle_RGB_770-480-470</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_770-480-470_log_hips" title="Sickle_RGB_770-480-470_log_hips">Sickle_RGB_770-480-470_log</button>
+        <button class="layer-btn hips-btn" data-grp="sickle" data-layer="Sickle_RGB_MIRI_optimal_restored_hips" title="Sickle_RGB_MIRI_optimal_restored_hips">Sickle_RGB_MIRI_optimal_restored</button>
       </div>
     </div>
     <div class="section">
       <div class="section-label">Arches / Quintuplet
         <span class="grp-mini">
-          <button class="mini-btn" data-grp="arches--quintuplet" data-on="1">all</button>
-          <button class="mini-btn" data-grp="arches--quintuplet" data-on="0">none</button>
+          <button class="mini-btn" data-grp="arches-quintuplet" data-on="1">all</button>
+          <button class="mini-btn" data-grp="arches-quintuplet" data-on="0">none</button>
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn arches--quintuplet" data-layer="ArchesQuintuplet_RGB_323-average-212_log_transparent_hips" title="ArchesQuintuplet_RGB_323-average-212_log_transparent_hips">ArchesQuintuplet_RGB_323-average-212_log</button>
-        <button class="layer-btn hips-btn arches--quintuplet" data-layer="Quintuplet_RGB_323-average-212_log_transparent_hips" title="Quintuplet_RGB_323-average-212_log_transparent_hips">Quintuplet_RGB_323-average-212_log</button>
-        <button class="layer-btn hips-btn arches--quintuplet plain" data-layer="ArchesQuintuplet_RGB_323-average-212_log_hips" title="ArchesQuintuplet_RGB_323-average-212_log_hips">ArchesQuintuplet_RGB_323-average-212_log</button>
+        <button class="layer-btn hips-btn" data-grp="arches-quintuplet" data-layer="ArchesQuintuplet_RGB_323-average-212_log_transparent_hips" title="ArchesQuintuplet_RGB_323-average-212_log_transparent_hips">ArchesQuintuplet_RGB_323-average-212_log</button>
+        <button class="layer-btn hips-btn" data-grp="arches-quintuplet" data-layer="Quintuplet_RGB_323-average-212_log_transparent_hips" title="Quintuplet_RGB_323-average-212_log_transparent_hips">Quintuplet_RGB_323-average-212_log</button>
+        <button class="layer-btn hips-btn" data-grp="arches-quintuplet" data-layer="Quintuplet_RGB_323-average-212_inpainted_lama_restored_hips" title="Quintuplet_RGB_323-average-212_inpainted_lama_restored_hips">Quintuplet_RGB_323-average-212_inpainted_lama_restored</button>
+        <button class="layer-btn hips-btn" data-grp="arches-quintuplet" data-layer="arches_ArchesQuintuplet_RGB_323-average-212_inpainted_lama_restored_hips" title="arches_ArchesQuintuplet_RGB_323-average-212_inpainted_lama_restored_hips">arches_ArchesQuintuplet_RGB_323-average-212_inpainted_lama_restored</button>
       </div>
     </div>
     <div class="section">
@@ -256,11 +244,11 @@
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn gc2211-per-obs" data-layer="GC2211_o023_F277_asinh_hips" title="GC2211_o023_F277_asinh_hips">GC2211_o023_F277_asinh</button>
-        <button class="layer-btn hips-btn gc2211-per-obs" data-layer="GC2211_o028_RGB_277-mean-150_asinh_hips" title="GC2211_o028_RGB_277-mean-150_asinh_hips">GC2211_o028_RGB_277-mean-150_asinh</button>
-        <button class="layer-btn hips-btn gc2211-per-obs" data-layer="GC2211_o046_RGB_277-mean-200_asinh_hips" title="GC2211_o046_RGB_277-mean-200_asinh_hips">GC2211_o046_RGB_277-mean-200_asinh</button>
-        <button class="layer-btn hips-btn gc2211-per-obs" data-layer="GC2211_o049_RGB_277-mean-200_asinh_hips" title="GC2211_o049_RGB_277-mean-200_asinh_hips">GC2211_o049_RGB_277-mean-200_asinh</button>
-        <button class="layer-btn hips-btn gc2211-per-obs" data-layer="GC2211_o050_RGB_277-mean-200_asinh_hips" title="GC2211_o050_RGB_277-mean-200_asinh_hips">GC2211_o050_RGB_277-mean-200_asinh</button>
+        <button class="layer-btn hips-btn" data-grp="gc2211-per-obs" data-layer="GC2211_o023_F277_asinh_hips" title="GC2211_o023_F277_asinh_hips">GC2211_o023_F277_asinh</button>
+        <button class="layer-btn hips-btn" data-grp="gc2211-per-obs" data-layer="GC2211_o028_RGB_277-mean-150_asinh_hips" title="GC2211_o028_RGB_277-mean-150_asinh_hips">GC2211_o028_RGB_277-mean-150_asinh</button>
+        <button class="layer-btn hips-btn" data-grp="gc2211-per-obs" data-layer="GC2211_o046_RGB_277-mean-200_asinh_hips" title="GC2211_o046_RGB_277-mean-200_asinh_hips">GC2211_o046_RGB_277-mean-200_asinh</button>
+        <button class="layer-btn hips-btn" data-grp="gc2211-per-obs" data-layer="GC2211_o049_RGB_277-mean-200_asinh_hips" title="GC2211_o049_RGB_277-mean-200_asinh_hips">GC2211_o049_RGB_277-mean-200_asinh</button>
+        <button class="layer-btn hips-btn" data-grp="gc2211-per-obs" data-layer="GC2211_o050_RGB_277-mean-200_asinh_hips" title="GC2211_o050_RGB_277-mean-200_asinh_hips">GC2211_o050_RGB_277-mean-200_asinh</button>
       </div>
     </div>
     <div class="section">
@@ -271,14 +259,14 @@
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn w51" data-layer="w51_RGB_162-210-187_transparent_hips" title="w51_RGB_162-210-187_transparent_hips">w51_RGB_162-210-187</button>
-        <button class="layer-btn hips-btn w51" data-layer="w51_RGB_182-162-140_log_transparent_hips" title="w51_RGB_182-162-140_log_transparent_hips">w51_RGB_182-162-140_log</button>
-        <button class="layer-btn hips-btn w51" data-layer="w51_RGB_360-335-210_transparent_hips" title="w51_RGB_360-335-210_transparent_hips">w51_RGB_360-335-210</button>
-        <button class="layer-btn hips-btn w51" data-layer="w51_RGB_405-360-335_transparent_hips" title="w51_RGB_405-360-335_transparent_hips">w51_RGB_405-360-335</button>
-        <button class="layer-btn hips-btn w51" data-layer="w51_RGB_480-405-187_scaled_transparent_hips" title="w51_RGB_480-405-187_scaled_transparent_hips">w51_RGB_480-405-187_scaled</button>
-        <button class="layer-btn hips-btn w51" data-layer="w51_RGB_480-410-405_transparent_hips" title="w51_RGB_480-410-405_transparent_hips">w51_RGB_480-410-405</button>
-        <button class="layer-btn hips-btn w51" data-layer="w51e2.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor_transparent_hips" title="w51e2.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor_transparent_hips">w51e2.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor</button>
-        <button class="layer-btn hips-btn w51" data-layer="w51n.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor_transparent_hips" title="w51n.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor_transparent_hips">w51n.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor</button>
+        <button class="layer-btn hips-btn" data-grp="w51" data-layer="w51_RGB_162-210-187_transparent_hips" title="w51_RGB_162-210-187_transparent_hips">w51_RGB_162-210-187</button>
+        <button class="layer-btn hips-btn" data-grp="w51" data-layer="w51_RGB_182-162-140_log_transparent_hips" title="w51_RGB_182-162-140_log_transparent_hips">w51_RGB_182-162-140_log</button>
+        <button class="layer-btn hips-btn" data-grp="w51" data-layer="w51_RGB_360-335-210_transparent_hips" title="w51_RGB_360-335-210_transparent_hips">w51_RGB_360-335-210</button>
+        <button class="layer-btn hips-btn" data-grp="w51" data-layer="w51_RGB_405-360-335_transparent_hips" title="w51_RGB_405-360-335_transparent_hips">w51_RGB_405-360-335</button>
+        <button class="layer-btn hips-btn" data-grp="w51" data-layer="w51_RGB_480-405-187_scaled_transparent_hips" title="w51_RGB_480-405-187_scaled_transparent_hips">w51_RGB_480-405-187_scaled</button>
+        <button class="layer-btn hips-btn" data-grp="w51" data-layer="w51_RGB_480-410-405_transparent_hips" title="w51_RGB_480-410-405_transparent_hips">w51_RGB_480-410-405</button>
+        <button class="layer-btn hips-btn" data-grp="w51" data-layer="w51e2.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor_transparent_hips" title="w51e2.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor_transparent_hips">w51e2.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor</button>
+        <button class="layer-btn hips-btn" data-grp="w51" data-layer="w51n.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor_transparent_hips" title="w51n.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor_transparent_hips">w51n.spw0thru19.14500.robust0.thr0.075mJy.mfs.I.startmod.selfcal7.image.tt0.pbcor</button>
       </div>
     </div>
     <div class="section">
@@ -289,12 +277,12 @@
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn westerlund-2" data-layer="wd2_RGB_1000-770-410_asinh_max99.5_transparent_hips" title="wd2_RGB_1000-770-410_asinh_max99.5_transparent_hips">wd2_RGB_1000-770-410_asinh_max99.5</button>
-        <button class="layer-btn hips-btn westerlund-2" data-layer="wd2_RGB_1130-770-164162_sub_asinh_max99.5_transparent_hips" title="wd2_RGB_1130-770-164162_sub_asinh_max99.5_transparent_hips">wd2_RGB_1130-770-164162_sub_asinh_max99.5</button>
-        <button class="layer-btn hips-btn westerlund-2" data-layer="wd2_miri_RGB_1130-1000-770_log_max99.9_transparent_hips" title="wd2_miri_RGB_1130-1000-770_log_max99.9_transparent_hips">wd2_miri_RGB_1130-1000-770_log_max99.9</button>
-        <button class="layer-btn hips-btn westerlund-2" data-layer="wd2_miri_RGB_1130-1000-770_log_transparent_hips" title="wd2_miri_RGB_1130-1000-770_log_transparent_hips">wd2_miri_RGB_1130-1000-770_log</button>
-        <button class="layer-btn hips-btn westerlund-2" data-layer="wd2_nircam_RGB_212-200-187_asinh_max99_transparent_hips" title="wd2_nircam_RGB_212-200-187_asinh_max99_transparent_hips">wd2_nircam_RGB_212-200-187_asinh_max99</button>
-        <button class="layer-btn hips-btn westerlund-2" data-layer="wd2_nircam_RGB_410-405-335_asinh_max99.5_transparent_hips" title="wd2_nircam_RGB_410-405-335_asinh_max99.5_transparent_hips">wd2_nircam_RGB_410-405-335_asinh_max99.5</button>
+        <button class="layer-btn hips-btn" data-grp="westerlund-2" data-layer="wd2_RGB_1000-770-410_asinh_max99.5_transparent_hips" title="wd2_RGB_1000-770-410_asinh_max99.5_transparent_hips">wd2_RGB_1000-770-410_asinh_max99.5</button>
+        <button class="layer-btn hips-btn" data-grp="westerlund-2" data-layer="wd2_RGB_1130-770-164162_sub_asinh_max99.5_transparent_hips" title="wd2_RGB_1130-770-164162_sub_asinh_max99.5_transparent_hips">wd2_RGB_1130-770-164162_sub_asinh_max99.5</button>
+        <button class="layer-btn hips-btn" data-grp="westerlund-2" data-layer="wd2_miri_RGB_1130-1000-770_log_max99.9_transparent_hips" title="wd2_miri_RGB_1130-1000-770_log_max99.9_transparent_hips">wd2_miri_RGB_1130-1000-770_log_max99.9</button>
+        <button class="layer-btn hips-btn" data-grp="westerlund-2" data-layer="wd2_miri_RGB_1130-1000-770_log_transparent_hips" title="wd2_miri_RGB_1130-1000-770_log_transparent_hips">wd2_miri_RGB_1130-1000-770_log</button>
+        <button class="layer-btn hips-btn" data-grp="westerlund-2" data-layer="wd2_nircam_RGB_212-200-187_asinh_max99_transparent_hips" title="wd2_nircam_RGB_212-200-187_asinh_max99_transparent_hips">wd2_nircam_RGB_212-200-187_asinh_max99</button>
+        <button class="layer-btn hips-btn" data-grp="westerlund-2" data-layer="wd2_nircam_RGB_410-405-335_asinh_max99.5_transparent_hips" title="wd2_nircam_RGB_410-405-335_asinh_max99.5_transparent_hips">wd2_nircam_RGB_410-405-335_asinh_max99.5</button>
       </div>
     </div>
     <div class="section">
@@ -305,61 +293,34 @@
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn ngc-6334" data-layer="NGC6334_JWST_colorcomposite_transparent_hips" title="NGC6334_JWST_colorcomposite_transparent_hips">NGC6334_JWST_colorcomposite</button>
+        <button class="layer-btn hips-btn" data-grp="ngc-6334" data-layer="NGC6334_JWST_colorcomposite_transparent_hips" title="NGC6334_JWST_colorcomposite_transparent_hips">NGC6334_JWST_colorcomposite</button>
       </div>
     </div>
     <div class="section">
       <div class="section-label">Orion / misc extragalactic
         <span class="grp-mini">
-          <button class="mini-btn" data-grp="orion--misc-extragalactic" data-on="1">all</button>
-          <button class="mini-btn" data-grp="orion--misc-extragalactic" data-on="0">none</button>
+          <button class="mini-btn" data-grp="orion-misc-extragalactic" data-on="1">all</button>
+          <button class="mini-btn" data-grp="orion-misc-extragalactic" data-on="0">none</button>
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn orion--misc-extragalactic" data-layer="heic1509a_transparent_hips" title="heic1509a_transparent_hips">heic1509a</button>
-        <button class="layer-btn hips-btn orion--misc-extragalactic" data-layer="Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm_hips" title="Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm_hips">Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm</button>
-        <button class="layer-btn hips-btn orion--misc-extragalactic" data-layer="Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm_noalpha_hips" title="Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm_noalpha_hips">Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm_noalpha</button>
-        <button class="layer-btn hips-btn orion--misc-extragalactic" data-layer="Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_hips" title="Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_hips">Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop</button>
+        <button class="layer-btn hips-btn" data-grp="orion-misc-extragalactic" data-layer="heic1509a_transparent_hips" title="heic1509a_transparent_hips">heic1509a</button>
+        <button class="layer-btn hips-btn" data-grp="orion-misc-extragalactic" data-layer="Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm_hips" title="Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm_hips">Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm</button>
+        <button class="layer-btn hips-btn" data-grp="orion-misc-extragalactic" data-layer="Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm_noalpha_hips" title="Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm_noalpha_hips">Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_avm_noalpha</button>
+        <button class="layer-btn hips-btn" data-grp="orion-misc-extragalactic" data-layer="Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_hips" title="Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop_hips">Trapezium_GEMS_mosaic_redblueorange_normed_large_contrast_bright_photoshop</button>
       </div>
     </div>
     <div class="section">
       <div class="section-label">Radio (MUSTANG / feathered)
         <span class="grp-mini">
-          <button class="mini-btn" data-grp="radio-mustang--feathered" data-on="1">all</button>
-          <button class="mini-btn" data-grp="radio-mustang--feathered" data-on="0">none</button>
+          <button class="mini-btn" data-grp="radio-mustang-feathered" data-on="1">all</button>
+          <button class="mini-btn" data-grp="radio-mustang-feathered" data-on="0">none</button>
         </span>
       </div>
       <div class="btn-row">
-        <button class="layer-btn hips-btn radio-mustang--feathered" data-layer="MUSTANG_12m_feather_noaxes_transparent_hips" title="MUSTANG_12m_feather_noaxes_transparent_hips">MUSTANG_12m_feather_noaxes</button>
-        <button class="layer-btn hips-btn radio-mustang--feathered" data-layer="feathered_MGPS_ALMATCTE7m_transparent_hips" title="feathered_MGPS_ALMATCTE7m_transparent_hips">feathered_MGPS_ALMATCTE7m</button>
-        <button class="layer-btn hips-btn radio-mustang--feathered plain" data-layer="MUSTANG_12m_feather_noaxes_hips" title="MUSTANG_12m_feather_noaxes_hips">MUSTANG_12m_feather_noaxes</button>
-        <button class="layer-btn hips-btn radio-mustang--feathered" data-layer="MUSTANG_TENS_noaxes_noalpha_hips" title="MUSTANG_TENS_noaxes_noalpha_hips">MUSTANG_TENS_noaxes_noalpha</button>
-        <button class="layer-btn hips-btn radio-mustang--feathered plain" data-layer="feathered_MGPS_ALMATCTE7m_hips" title="feathered_MGPS_ALMATCTE7m_hips">feathered_MGPS_ALMATCTE7m</button>
-      </div>
-    </div>
-    <div class="section">
-      <div class="section-label">Diagnostics / orientation QA
-        <span class="grp-mini">
-          <button class="mini-btn" data-grp="diagnostics--orientation-qa" data-on="1">all</button>
-          <button class="mini-btn" data-grp="diagnostics--orientation-qa" data-on="0">none</button>
-        </span>
-      </div>
-      <div class="btn-row">
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="BRICK200_RESTORED_212-187-115_hips" title="BRICK200_RESTORED_212-187-115_hips">BRICK200_RESTORED_212-187-115</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="BRICK200_UNRESTORED_466-410-356_hips" title="BRICK200_UNRESTORED_466-410-356_hips">BRICK200_UNRESTORED_466-410-356</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="BRICK_187_identity_test_hips" title="BRICK_187_identity_test_hips">BRICK_187_identity_test</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="BRICK_187_rot180_test_hips" title="BRICK_187_rot180_test_hips">BRICK_187_rot180_test</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="BRICK_444_identity_test_hips" title="BRICK_444_identity_test_hips">BRICK_444_identity_test</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="BRICK_444_rot180_test_hips" title="BRICK_444_rot180_test_hips">BRICK_444_rot180_test</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="Quintuplet_RGB_323-average-212_inpainted_lama_restored_hips" title="Quintuplet_RGB_323-average-212_inpainted_lama_restored_hips">Quintuplet_RGB_323-average-212_inpainted_lama_restored</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="SGRC_check_FLIPLR_hips" title="SGRC_check_FLIPLR_hips">SGRC_check_FLIPLR</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="SGRC_check_FLIPUD_hips" title="SGRC_check_FLIPUD_hips">SGRC_check_FLIPUD</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="SGRC_check_ROT180_hips" title="SGRC_check_ROT180_hips">SGRC_check_ROT180</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="SGRC_identity_CDMatrix_check_hips" title="SGRC_identity_CDMatrix_check_hips">SGRC_identity_CDMatrix_check</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="SGRC_restored_check_hips" title="SGRC_restored_check_hips">SGRC_restored_check</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="Sickle_RGB_1500-1130-770_restored_hips" title="Sickle_RGB_1500-1130-770_restored_hips">Sickle_RGB_1500-1130-770_restored</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="Sickle_RGB_MIRI_optimal_restored_hips" title="Sickle_RGB_MIRI_optimal_restored_hips">Sickle_RGB_MIRI_optimal_restored</button>
-        <button class="layer-btn hips-btn diagnostics--orientation-qa" data-layer="arches_ArchesQuintuplet_RGB_323-average-212_inpainted_lama_restored_hips" title="arches_ArchesQuintuplet_RGB_323-average-212_inpainted_lama_restored_hips">arches_ArchesQuintuplet_RGB_323-average-212_inpainted_lama_restored</button>
+        <button class="layer-btn hips-btn" data-grp="radio-mustang-feathered" data-layer="MUSTANG_12m_feather_noaxes_transparent_hips" title="MUSTANG_12m_feather_noaxes_transparent_hips">MUSTANG_12m_feather_noaxes</button>
+        <button class="layer-btn hips-btn" data-grp="radio-mustang-feathered" data-layer="feathered_MGPS_ALMATCTE7m_transparent_hips" title="feathered_MGPS_ALMATCTE7m_transparent_hips">feathered_MGPS_ALMATCTE7m</button>
+        <button class="layer-btn hips-btn" data-grp="radio-mustang-feathered" data-layer="MUSTANG_TENS_noaxes_noalpha_hips" title="MUSTANG_TENS_noaxes_noalpha_hips">MUSTANG_TENS_noaxes_noalpha</button>
       </div>
     </div>
 
@@ -374,6 +335,11 @@
 <script>
 let aladin;
 const DEFAULT_ON = ["jwst_miri_hips", "jwst_nir_hips"];
+// Every handler below needs `aladin`, which only exists once A.init resolves.
+// Disable the panel until then so a click cannot mark a button active without
+// loading anything.
+const PANEL_BUTTONS = '#ui button';
+document.querySelectorAll(PANEL_BUTTONS).forEach(b => { b.disabled = true; });
 const loaded = {};   // layerName -> HiPS object
 let overlayOpacity = 1.0;
 
@@ -413,7 +379,7 @@ document.querySelectorAll('button.hips-btn').forEach(btn => {
 document.querySelectorAll('.mini-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const grp = btn.dataset.grp, on = btn.dataset.on === '1';
-    document.querySelectorAll('button.hips-btn.' + grp).forEach(b => {
+    document.querySelectorAll('button.hips-btn[data-grp="' + grp + '"]').forEach(b => {
       const name = b.dataset.layer, isOn = b.classList.contains('active');
       if (on && !isOn){ if (aladin) addLayer(name); b.classList.add('active'); }
       if (!on && isOn){ removeLayer(name); b.classList.remove('active'); }
@@ -442,8 +408,10 @@ opRange.addEventListener('input', () => {
 });
 
 // ── catalog overlays ──────────────────────────────────────────
-// JWST program 6927 (Brick NIRSpec MSA, 4 pointings) target list, from the
-// APT file 6927.aptx. The 4 pointings coincide to ~0.2"; PA~228.86 deg.
+// JWST program 6927 (Brick NIRSpec MSA): the 4 pointing centres, transcribed
+// from the programme's APT target list.  The .aptx file is not in this repo, so
+// these literals are the only record here; they coincide to ~0.2", PA~228.86
+// deg, and sit on the Brick (l=0.251, b=0.020).
 const CATALOGS = {
   jwst6927: {
     name: 'JWST 6927 (Brick NIRSpec MSA)',
@@ -481,6 +449,8 @@ document.querySelectorAll('button.cat-btn').forEach(btn => {
   });
 });
 
+// Aladin Lite itself, the base surveys and the sky-tile fetches all come from
+// CDS; there is no local fallback, so the viewer needs CDS to be reachable.
 A.init.then(() => {
   aladin = A.aladin('#aladin', {
     survey:   'https://alasky.cds.unistra.fr/VISTA/VVV_DR4/VISTA-VVV-DR4-H-Bulge',
@@ -496,6 +466,8 @@ A.init.then(() => {
   for (const name of DEFAULT_ON) addLayer(name);
   // default-on catalog overlays
   document.querySelectorAll('button.cat-btn.active').forEach(b => addCatalog(b.dataset.cat));
+  // the panel is live only now that aladin exists
+  document.querySelectorAll(PANEL_BUTTONS).forEach(b => { b.disabled = false; });
 });
 </script>
 </body>

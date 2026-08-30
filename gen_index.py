@@ -1,17 +1,54 @@
 #!/usr/bin/env python3
 """Generate the JWST CMZ Aladin Lite viewer index.html.
 
-Enumerates every valid HiPS dir in the web avm_images folder, groups them by
+Enumerates every publishable HiPS dir in an avm_images tree, groups them by
 target, and emits toggle buttons.  jwst_nir_hips + jwst_miri_hips are the two
 default-on overlay layers.
+
+Terms: a *layer* is one `*_hips` directory (a HiPS = Hierarchical Progressive
+Survey, the nested sky-tile pyramid Aladin reads); a *coadd* is a HiPS built by
+stacking several layers.
+
+What is deliberately NOT published (see EXCLUDE_PATTERNS and
+has_transparent_twin): orientation-QA renders, `*_stale` / `*_flipped_aug`
+snapshots, and any plain `X_hips` whose edge-transparent twin
+`X_transparent_hips` also exists.  Those twins carry the same visible label as
+the corrected layer while some of them are the mis-registered pre-fix builds, so
+listing both put a broken layer one click from the good one under an identical
+name.  `--include-diagnostics` restores them for local inspection.
+
+The page loads Aladin Lite and its background surveys from CDS; if CDS is
+unreachable the viewer does not come up.  That is inherent to an Aladin viewer
+and there is no local fallback.
+
+Usage:
+  gen_index.py [--web DIR] [--out FILE] [--include-diagnostics]
 """
-import os
+import argparse
 import html
+import os
+import re
 
 WEB = "/orange/adamginsburg/web/public/avm_images"
 
-# default-on overlay layers (bottom -> top)
+# default-on overlay layers (bottom -> top, so jwst_nir_hips paints over
+# jwst_miri_hips where NIRCam/NIRISS coverage exists)
 DEFAULT_ON = ["jwst_miri_hips", "jwst_nir_hips"]
+
+# layers never published to the viewer: deliberately-wrong orientation renders,
+# superseded snapshots, and flood-fill experiments
+EXCLUDE_PATTERNS = [
+    re.compile(p) for p in (
+        r"_test_", r"_check_", r"_identity_", r"_stale$", r"_flipped_aug$",
+        r"_flooded$",
+    )
+]
+
+
+def is_diagnostic(name):
+    n = name.lower()
+    return any(p.search(n) for p in EXCLUDE_PATTERNS)
+
 
 # ordered (group title, predicate) -- first match wins
 def _grp(name):
@@ -20,8 +57,7 @@ def _grp(name):
         return "CMZ full mosaics"
     if n.startswith("rgb_final_uncropped") or n.startswith("gc_fullres"):
         return "CMZ full mosaics"
-    if any(k in n for k in ("_check_", "_identity_", "_test_", "brick200",
-                            "_restored_hips")):
+    if is_diagnostic(n):
         return "Diagnostics / orientation QA"
     if n.startswith("brick") or n.startswith("brickjwst"):
         return "Brick"
@@ -72,45 +108,58 @@ def short_label(name):
     return lbl
 
 
-def main():
-    dirs = []
-    for d in sorted(os.listdir(WEB)):
+def group_id(title):
+    """CSS/attribute-safe id for a group title.
+
+    Only [a-z0-9-] survives: 'Sgr A*' has to become 'sgr-a', because '*' is not
+    a valid CSS identifier character and made `querySelectorAll` throw on the
+    group's all/none buttons.
+    """
+    return re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+
+
+def collect(web, include_diagnostics=False):
+    """Return the layer directory names to publish, in listing order."""
+    found = []
+    for d in sorted(os.listdir(web)):
         if not d.endswith("_hips"):
             continue
-        p = os.path.join(WEB, d)
-        if os.path.islink(p) or os.path.isfile(os.path.join(p, "properties")):
-            dirs.append(d)
+        # follows symlinks, so a symlinked layer needs no special case and a
+        # broken symlink is dropped rather than published as a dead button
+        if os.path.isfile(os.path.join(web, d, "properties")):
+            found.append(d)
 
-    groups = {}
-    for d in dirs:
-        groups.setdefault(_grp(d), []).append(d)
-
-    # prefer transparent variant when both transparent+plain exist; keep both
-    # available but mark plain ones.
     def has_transparent_twin(name):
         if name.endswith("_transparent_hips"):
             return False
-        base = name[: -len("_hips")]
-        return (base + "_transparent_hips") in dirs
+        return (name[: -len("_hips")] + "_transparent_hips") in found
+
+    return [d for d in found
+            if (include_diagnostics or not is_diagnostic(d))
+            and not has_transparent_twin(d)]
+
+
+def build_page(dirs):
+    groups = {}
+    for d in dirs:
+        groups.setdefault(_grp(d), []).append(d)
 
     parts = []
     for g in GROUP_ORDER:
         if g not in groups:
             continue
-        names = groups[g]
         # transparent first, then plain
-        names = sorted(names, key=lambda x: (not x.endswith("_transparent_hips"), x))
-        gid = g.lower().replace(" ", "-").replace("/", "").replace("(", "").replace(")", "")
+        names = sorted(groups[g],
+                       key=lambda x: (not x.endswith("_transparent_hips"), x))
+        gid = group_id(g)
         buttons = []
         for name in names:
             lbl = html.escape(short_label(name))
-            default = name in DEFAULT_ON
-            cls = "layer-btn hips-btn " + gid + (" active" if default else "")
-            title = html.escape(name)
-            plain = " plain" if has_transparent_twin(name) else ""
+            cls = "layer-btn hips-btn" + (" active" if name in DEFAULT_ON else "")
             buttons.append(
-                f'<button class="{cls}{plain}" data-layer="{html.escape(name)}" '
-                f'title="{title}">{lbl}</button>'
+                f'<button class="{cls}" data-grp="{gid}" '
+                f'data-layer="{html.escape(name)}" '
+                f'title="{html.escape(name)}">{lbl}</button>'
             )
         parts.append(f'''    <div class="section">
       <div class="section-label">{html.escape(g)}
@@ -124,15 +173,27 @@ def main():
       </div>
     </div>''')
 
-    groups_html = "\n".join(parts)
-
     default_js = ", ".join(f'"{n}"' for n in DEFAULT_ON)
+    return (TEMPLATE.replace("__GROUPS__", "\n".join(parts))
+                    .replace("__DEFAULT_ON__", default_js), len(parts))
 
-    page = TEMPLATE.replace("__GROUPS__", groups_html).replace("__DEFAULT_ON__", default_js)
-    out = "/blue/adamginsburg/adamginsburg/tmp/claude-3663/-orange-adamginsburg-jwst-jwst-scripts/461d110c-a961-4d9b-b0dc-af3002dcd6e4/scratchpad/index_new.html"
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--web", default=WEB,
+                   help=f"avm_images tree to enumerate (default {WEB})")
+    p.add_argument("--out", default=None,
+                   help="output HTML file (default: index.html inside --web)")
+    p.add_argument("--include-diagnostics", action="store_true",
+                   help="also publish orientation-QA and superseded layers")
+    args = p.parse_args()
+    out = args.out or os.path.join(args.web, "index.html")
+
+    dirs = collect(args.web, args.include_diagnostics)
+    page, ngroups = build_page(dirs)
     with open(out, "w") as fh:
         fh.write(page)
-    print(f"wrote {out} ({len(dirs)} layers, {len(parts)} groups)")
+    print(f"wrote {out} ({len(dirs)} layers, {ngroups} groups)")
 
 
 TEMPLATE = r"""<!doctype html>
@@ -167,7 +228,6 @@ TEMPLATE = r"""<!doctype html>
     button.survey.active{background:rgba(180,180,255,.2);color:#c0c0ff;border-color:#c0c0ff}
     button.layer-btn.active{border-color:#7fd0ff;color:#fff;
       background:rgba(120,190,255,.22);font-weight:600}
-    button.hips-btn.plain{opacity:.7;font-style:italic}
     button.cat-btn.active{border-color:var(--bc,#ffdd33);color:var(--bc,#ffdd33);
       background:rgba(255,221,51,.15);font-weight:600}
     .mini-btn{font-size:9px;padding:1px 5px;color:#999;border-color:rgba(255,255,255,.2)}
@@ -226,6 +286,11 @@ __GROUPS__
 <script>
 let aladin;
 const DEFAULT_ON = [__DEFAULT_ON__];
+// Every handler below needs `aladin`, which only exists once A.init resolves.
+// Disable the panel until then so a click cannot mark a button active without
+// loading anything.
+const PANEL_BUTTONS = '#ui button';
+document.querySelectorAll(PANEL_BUTTONS).forEach(b => { b.disabled = true; });
 const loaded = {};   // layerName -> HiPS object
 let overlayOpacity = 1.0;
 
@@ -265,7 +330,7 @@ document.querySelectorAll('button.hips-btn').forEach(btn => {
 document.querySelectorAll('.mini-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const grp = btn.dataset.grp, on = btn.dataset.on === '1';
-    document.querySelectorAll('button.hips-btn.' + grp).forEach(b => {
+    document.querySelectorAll('button.hips-btn[data-grp="' + grp + '"]').forEach(b => {
       const name = b.dataset.layer, isOn = b.classList.contains('active');
       if (on && !isOn){ if (aladin) addLayer(name); b.classList.add('active'); }
       if (!on && isOn){ removeLayer(name); b.classList.remove('active'); }
@@ -294,8 +359,10 @@ opRange.addEventListener('input', () => {
 });
 
 // ── catalog overlays ──────────────────────────────────────────
-// JWST program 6927 (Brick NIRSpec MSA, 4 pointings) target list, from the
-// APT file 6927.aptx. The 4 pointings coincide to ~0.2"; PA~228.86 deg.
+// JWST program 6927 (Brick NIRSpec MSA): the 4 pointing centres, transcribed
+// from the programme's APT target list.  The .aptx file is not in this repo, so
+// these literals are the only record here; they coincide to ~0.2", PA~228.86
+// deg, and sit on the Brick (l=0.251, b=0.020).
 const CATALOGS = {
   jwst6927: {
     name: 'JWST 6927 (Brick NIRSpec MSA)',
@@ -333,6 +400,8 @@ document.querySelectorAll('button.cat-btn').forEach(btn => {
   });
 });
 
+// Aladin Lite itself, the base surveys and the sky-tile fetches all come from
+// CDS; there is no local fallback, so the viewer needs CDS to be reachable.
 A.init.then(() => {
   aladin = A.aladin('#aladin', {
     survey:   'https://alasky.cds.unistra.fr/VISTA/VVV_DR4/VISTA-VVV-DR4-H-Bulge',
@@ -348,6 +417,8 @@ A.init.then(() => {
   for (const name of DEFAULT_ON) addLayer(name);
   // default-on catalog overlays
   document.querySelectorAll('button.cat-btn.active').forEach(b => addCatalog(b.dataset.cat));
+  // the panel is live only now that aladin exists
+  document.querySelectorAll(PANEL_BUTTONS).forEach(b => { b.disabled = false; });
 });
 </script>
 </body>
