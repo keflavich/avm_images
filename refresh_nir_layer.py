@@ -59,12 +59,16 @@ TARGETS = {
     "sgra": (
         f"{JW}/sgra/pngs_444/SgrA_RGB_NIRCam_444-323-212.png",
         f"{JW}/sgra/data_reprojected/"
-        "jw01939-o001_t001_nircam_clear-f212n-merged_i2d_pipeline_v0.1_reprj_f444.fits",
+        "jw01939-o001_t001_nircam_clear-f212n_i2d_pipeline_v0.1_reprj_f444.fits",
     ),
+    # NOTE: the 2026-08 cloudef run added observations (new filters 2105/3605/
+    # 4805/7706/21006), which shifted the consecutive-triple combo names, so
+    # Cloudef_RGB_4802-3602-2102 was NOT rewritten by it.  The newest copy of
+    # that combo is 2026-07-21 -- still far newer than the 2025-06 web copy.
     "cloudef": (
-        f"{JW}/cloudef/pngs_480/Cloudef_RGB_4802-3602-2102.png",
+        f"{JW}/cloudef/pngs_480mo/Cloudef_RGB_4802-3602-2102.png",
         f"{JW}/cloudef/data_reprojected/"
-        "jw02092-o002_t001_nircam_clear-f210m-merged_i2d_pipeline_v0.1_reprj_f480.fits",
+        "jw02092-o002_t001_nircam_clear-f210m_i2d_pipeline_v0.1_reprj_f480mo.fits",
     ),
 }
 
