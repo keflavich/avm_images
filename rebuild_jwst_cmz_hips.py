@@ -26,6 +26,36 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 os.chdir(HERE)
 
 
+EXTRA_HIPS = [
+    # Brick NIRCam RGB (F444W/F356W/F200W), replacing the local
+    # Brick_RGB_444-356-200_transparent_hips copy, which had gone stale (the
+    # coadd was last rebuilt against a since-superseded version of that
+    # directory and carried visible tiling/color-block artifacts across the
+    # Brick). Symlinked straight to the canonical build under
+    # /orange/adamginsburg/jwst/brick/pngs_444/ -- the same tree served at
+    # https://data.rc.ufl.edu/secure/adamginsburg/jwst/brick/pngs_444/ --
+    # rather than copied, so avm_images stays in sync with the source.
+    ("Brick_RGB_444-356-200_hips",
+     "/orange/adamginsburg/jwst/brick/pngs_444/Brick_RGB_444-356-200_hips"),
+    # Cloud E/F MIRI (program 2092), F770W + F2100W.  o004+o008 are the main
+    # field's two MIRI tiles; the control field's MIRI pointing (o006) is a
+    # SEPARATE field, ~0.2 deg away, despite living in the cloudef/ directory
+    # tree -- see scripts/cloudef_miri_images.py's module docstring for how
+    # that was confirmed from the mosaic headers rather than the directory
+    # name. Built by cloudef_miri_images.py --all in jwst_scripts.
+    ("Cloudef_MIRI_F770W_hips",
+     "/orange/adamginsburg/jwst/cloudef/pngs_miri/Cloudef_MIRI_F770W_hips"),
+    ("Cloudef_MIRI_F2100W_hips",
+     "/orange/adamginsburg/jwst/cloudef/pngs_miri/Cloudef_MIRI_F2100W_hips"),
+    ("CloudefControl_MIRI_F770W_hips",
+     "/orange/adamginsburg/jwst/cloudef_controlfield/pngs_miri/"
+     "CloudefControl_MIRI_F770W_hips"),
+    ("CloudefControl_MIRI_F2100W_hips",
+     "/orange/adamginsburg/jwst/cloudef_controlfield/pngs_miri/"
+     "CloudefControl_MIRI_F2100W_hips"),
+]
+
+
 GC2211_HIPS = [
     ("GC2211_o023_F277_asinh_hips",
      "/orange/adamginsburg/jwst/gc2211/pngs/o023/GC2211_o023_F277_asinh_hips"),
@@ -45,11 +75,15 @@ NIR_LAYERS = [
     'cloudcJWST_merged_R-F466N_B-F405N_rotated_transparent_hips',   # NIRCam
     'SgrB2_RGB_480-405-187_scaled_transparent_hips',                # NIRCam
     'Cloudef_RGB_4802-3602-2102_transparent_hips',                  # NIRCam
+    # cloud e/f CONTROL field (prog 2092 o005) -- a SEPARATE pointing at
+    # l=0.4137 b=+0.1899, ~0.2 deg from the main cloudef field at l=0.4857
+    # b=+0.0074, with no overlap, so it is its own layer rather than merged in.
+    'CloudefControl_RGB_480-360-210_hips',                          # NIRCam
     'SGRC_RGB_480-360-212_transparent_hips',                        # NIRCam
     # NIRISS Sgr C parallel field (proj 4147, F480M/F356W/F200W), faithful
     # CDMatrix AVM.  Above the NIRCam SgrC layer so it fills its offset coverage.
     'SGRC_NIRISS_RGB_480-356-200_transparent_hips',                 # NIRISS
-    'Brick_RGB_444-356-200_transparent_hips',                       # NIRCam
+    'Brick_RGB_444-356-200_hips',                                   # NIRCam
     'BrickJWST_merged_longwave_narrowband_transparent_hips',        # NIRCam
     'ArchesQuintuplet_RGB_323-average-212_log_transparent_hips',    # NIRCam
     'Quintuplet_RGB_323-average-212_log_transparent_hips',          # NIRCam
@@ -59,11 +93,24 @@ NIR_LAYERS = [
 
 # All MIRI coverage across the CMZ fields (bottom -> top).
 MIRI_LAYERS = [
-    'CloudC_MIRI_RGB_2550-770-770_transparent_hips',   # cloudc F2550W+F770W
+    # cloud C MIRI is two separate grayscale fields with different pointings:
+    # F2550W from program 2221, F770W from program 2526.  The old combined RGB
+    # (CloudC_MIRI_RGB_2550-770-770) reprojected F2550W onto the F770W grid,
+    # cropping it to a corner, and no longer exists on disk.
+    'CloudC_MIRI_F770W_transparent_hips',              # cloudc F770W (prog 2526)
+    'CloudC_MIRI_F2550W_transparent_hips',             # cloudc F2550W (prog 2221)
     'Brick_RGB_1500-1130-770_transparent_hips',        # brick MIRI
+    # brick F2550W monochrome, native 2858x1058 grid (no reprojection onto a
+    # finer NIRCam grid the 25um data cannot support).  Corrected per-group
+    # re-reduction, MIRICOR='20260904pergroup' in the SCI header.
+    'Brick_MIRI_F2550W_hips',                          # brick F2550W mono
     'SgrB2_RGB_2550-1280-770_transparent_hips',        # sgrb2 full-MIRI F2550W
     'Sickle_RGB_1500-1130-770_transparent_hips',       # sickle MIRI
     'SgrA_RGB_MIRI_1500-1000-560_transparent_hips',    # sgra MIRI
+    'Cloudef_MIRI_F770W_hips',                         # cloudef MIRI (prog 2092 o004+o008)
+    'Cloudef_MIRI_F2100W_hips',                        # cloudef MIRI (prog 2092 o004+o008)
+    'CloudefControl_MIRI_F770W_hips',                  # cloudef control MIRI (prog 2092 o006)
+    'CloudefControl_MIRI_F2100W_hips',                 # cloudef control MIRI (prog 2092 o006)
 ]
 
 
@@ -76,23 +123,63 @@ def ensure_symlink(link_name, target):
     print(f"  linked {link_name} -> {target}")
 
 
-def build_coadd(layers, out):
+def unreadable_layers(layers):
+    """Which inputs coadd_hips would fail to read.
+
+    It opens every layer's properties before writing anything, and
+    reproject_to_hips writes a layer's tiles first and its properties last, so
+    a directory that exists with tiles in it may still be mid-build.
+    """
+    bad = []
     for layer in layers:
         if not os.path.isdir(layer):
-            raise FileNotFoundError(f"Missing layer: {layer}")
+            bad.append(f"{layer}: missing")
+        elif not os.path.exists(os.path.join(layer, "properties")):
+            bad.append(f"{layer}: no properties (still building?)")
+        elif not os.path.isdir(os.path.join(layer, "Norder3")):
+            bad.append(f"{layer}: no Norder3")
+    return bad
+
+
+def build_coadd(layers, out):
+    """Coadd into <out>.new, then swap it into place.
+
+    avm_images is the live docroot.  Rebuilding in place leaves a partial HiPS
+    served under that name for the length of the rebuild, and leaves it there
+    for good if the rebuild fails.
+    """
+    bad = unreadable_layers(layers)
+    if bad:
+        print(f"NOT rebuilding {out}: {len(bad)} input layer(s) unreadable")
+        for b in bad:
+            print(f"  {b}")
+        raise FileNotFoundError(f"{len(bad)} unreadable input layer(s) for {out}")
+
+    stage = out + ".new"
+    if os.path.islink(stage):
+        os.remove(stage)
+    elif os.path.exists(stage):
+        shutil.rmtree(stage)
+    print(f"Coadding {len(layers)} layers -> {stage}")
+    coadd_hips(layers, stage)
+
+    # Only now is the live tree touched.  A crash above leaves it serving.
+    old = out + ".old"
+    if os.path.exists(old):
+        shutil.rmtree(old)
     if os.path.islink(out):
         os.remove(out)
     elif os.path.exists(out):
-        print(f"Removing existing {out}")
-        shutil.rmtree(out)
-    print(f"Coadding {len(layers)} layers -> {out}")
-    coadd_hips(layers, out)
+        os.rename(out, old)
+    os.rename(stage, out)
+    if os.path.exists(old):
+        shutil.rmtree(old)
     print(f"Done: {out}")
 
 
 def main():
-    print("Linking gc2211 HiPS into avm_images...")
-    for link, target in GC2211_HIPS:
+    print("Linking extra HiPS into avm_images...")
+    for link, target in EXTRA_HIPS + GC2211_HIPS:
         if not os.path.isdir(target):
             raise FileNotFoundError(f"Missing source HiPS: {target}")
         ensure_symlink(link, target)
