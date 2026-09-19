@@ -14,6 +14,14 @@ gc2211 per-OBS HiPS (produced by scripts/gc2211_rgb_images.py) are symlinked
 into this directory and painted as the lowest NIR layers, overwritten by the
 brighter per-target RGB layers above.
 
+Stacking order: `coadd_hips` uses the LAST input directory where inputs overlap
+(reproject/hips/high_level.py: "the last image in the order of
+input_directories is used"), so the lists below run bottom -> top and the
+gc2211 wide-field layers are listed FIRST to sit underneath the per-target RGB
+layers.  (Until 2026-08 they were appended last, which put them on top of the
+per-target layers; jwst_nir_hips needs a rebuild for this ordering to take
+effect.)
+
 Keep the layer lists in sync with python_reproject_to_hips.py.
 """
 
@@ -21,9 +29,10 @@ import os
 import shutil
 from reproject.hips import coadd_hips
 
+from hips_orientation import replace_dir
+
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-os.chdir(HERE)
 
 
 EXTRA_HIPS = [
@@ -70,8 +79,8 @@ GC2211_HIPS = [
 ]
 
 
-# NIRCam + NIRISS layers (bottom -> top).
-NIR_LAYERS = [
+# NIRCam + NIRISS layers (bottom -> top; last entry wins on overlap).
+NIR_LAYERS = [name for name, _ in GC2211_HIPS] + [   # NIRCam wide-field, bottom
     'cloudcJWST_merged_R-F466N_B-F405N_rotated_transparent_hips',   # NIRCam
     'SgrB2_RGB_480-405-187_scaled_transparent_hips',                # NIRCam
     'Cloudef_RGB_4802-3602-2102_transparent_hips',                  # NIRCam
@@ -88,10 +97,10 @@ NIR_LAYERS = [
     'ArchesQuintuplet_RGB_323-average-212_log_transparent_hips',    # NIRCam
     'Quintuplet_RGB_323-average-212_log_transparent_hips',          # NIRCam
     'SgrA_RGB_NIRCam_444-323-212_transparent_hips',                 # NIRCam
-] + [name for name, _ in GC2211_HIPS]                              # NIRCam
+]
 
 
-# All MIRI coverage across the CMZ fields (bottom -> top).
+# All MIRI coverage across the CMZ fields (bottom -> top; last wins on overlap).
 MIRI_LAYERS = [
     # cloud C MIRI is two separate grayscale fields with different pointings:
     # F2550W from program 2221, F770W from program 2526.  The old combined RGB
@@ -141,6 +150,21 @@ def unreadable_layers(layers):
     return bad
 
 
+def check_layers(layers, ignore=()):
+    """Raise if any input layer is unusable, skipping ones about to be rebuilt.
+
+    Call this before a script starts replacing published layers, so an
+    unsatisfiable coadd fails while the web tree is still intact.  `ignore`
+    names the layers the caller is about to rebuild, which legitimately do not
+    exist yet -- or exist mid-build, which is why the check is
+    `unreadable_layers` rather than a bare isdir.
+    """
+    bad = unreadable_layers([x for x in layers if x not in ignore])
+    if bad:
+        raise FileNotFoundError(
+            "Layer(s) not usable for the coadd: " + "; ".join(bad))
+
+
 def build_coadd(layers, out):
     """Coadd into <out>.new, then swap it into place.
 
@@ -164,20 +188,14 @@ def build_coadd(layers, out):
     coadd_hips(layers, stage)
 
     # Only now is the live tree touched.  A crash above leaves it serving.
-    old = out + ".old"
-    if os.path.exists(old):
-        shutil.rmtree(old)
-    if os.path.islink(out):
-        os.remove(out)
-    elif os.path.exists(out):
-        os.rename(out, old)
-    os.rename(stage, out)
-    if os.path.exists(old):
-        shutil.rmtree(old)
+    # replace_dir removes a symlinked destination rather than renaming it,
+    # which matters because several layers here are symlinks into build trees.
+    replace_dir(stage, out)
     print(f"Done: {out}")
 
 
 def main():
+    os.chdir(HERE)
     print("Linking extra HiPS into avm_images...")
     for link, target in EXTRA_HIPS + GC2211_HIPS:
         if not os.path.isdir(target):
