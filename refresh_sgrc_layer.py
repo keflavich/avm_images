@@ -17,6 +17,7 @@ from reproject import reproject_interp
 from reproject.hips import reproject_to_hips
 
 from python_reproject_to_hips import convert_black_to_transparent
+from hips_naming import properties_for
 
 Image.MAX_IMAGE_PIXELS = None
 
@@ -45,7 +46,8 @@ def main():
     print(f"Reprojecting {TRANS} -> {HIPS}")
     reproject_to_hips(TRANS, coord_system_out='galactic', level=None,
                       reproject_function=reproject_interp,
-                      output_directory=HIPS, threads=8, progress_bar=tqdm)
+                      output_directory=HIPS, threads=8,
+                      properties=properties_for(HIPS), progress_bar=tqdm)
     print("Done: sgrc layer refreshed.")
 
 

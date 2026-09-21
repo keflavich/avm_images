@@ -1,4 +1,9 @@
-"""Descriptive names for the HiPS served out of avm_images.
+"""Descriptive names and identity keywords for the HiPS we publish.
+
+Kept byte-identical to `jwst_rgb/hips_naming.py` in jwst_scripts, which is
+where it is maintained.  It is copied rather than imported because this
+docroot is rebuilt by scripts that run with nothing on the path but this
+directory; `make_hipslist.py` is one of them.
 
 The HiPS network indexes datasets by `creator_did` and shows users
 `obs_title`, so both have to be meaningful.  What the builder wrote is
@@ -22,6 +27,9 @@ import re
 # IVOID authority.  Thomas Boch (CDS) asked for an authority-prefixed ID in
 # place of the builder's UUID, so that the HiPS network shows provenance.
 AUTHORITY = "ivo://UFL/P"
+
+# hips_creator, shown next to the dataset in HiPS clients.
+CREATOR = "Adam Ginsburg (University of Florida)"
 
 NIRCAM = {
     "070": "F070W", "090": "F090W", "115": "F115W", "140": "F140M",
@@ -180,6 +188,11 @@ SPECIAL = {
         "meerkat-galactic-centre-colour-transparent",
         "MeerKAT 1.28 GHz Galactic Centre colour composite "
         "(transparent background)"),
+    # coadd_hips paints the first input on top, so the two orderings differ
+    # only in which of the two radio maps dominates.
+    "AshFigureWithACES": (
+        "meerkat-mustang2-galactic-centre-composite",
+        "Galactic Centre composite: MeerKAT 1.28 GHz over MUSTANG-2 90 GHz"),
     "AshFigureWithACES_MUSTANGfirst": (
         "mustang2-meerkat-galactic-centre-composite",
         "Galactic Centre composite: MUSTANG-2 90 GHz over MeerKAT 1.28 GHz"),
@@ -336,9 +349,10 @@ def describe(name):
     if m:
         prog = ("JWST GC Treasury" if m.group(1) == "GCTreasury"
                 else "JWST GC programme 2211")
-        rest = _render(m.group(3), None)[0]
+        rest, _, extra, _ = _render(m.group(3), None)
+        suffix = f" ({', '.join(extra)})" if extra else ""
         return (f"{AUTHORITY}/{slugify(name)}",
-                f"{prog} field o{m.group(2)}: {rest}")
+                f"{prog} field o{m.group(2)}: {rest}{suffix}")
 
     if stem.startswith("MUBLO_"):
         key = stem[len("MUBLO_"):]
@@ -406,6 +420,10 @@ def _render(stem, instrument):
             extra.append(f"{tok[3:]}th-percentile ceiling")
         elif re.fullmatch(r"\d{2}(\.\d+)?", tok):
             extra.append(f"{tok}th-percentile ceiling")
+        elif re.fullmatch(r"F\d+", tok) and tok[1:] in FILTERS:
+            # A bare "F277" carries no width letter; the lookup supplies it.
+            channels.append(FILTERS[tok[1:]])
+            leftovers.append(FILTERS[tok[1:]])
         elif tok.startswith("F") and tok[1:-1].isdigit():
             channels.append(tok)
             leftovers.append(tok)
@@ -415,3 +433,78 @@ def _render(stem, instrument):
     if leftovers and all(l in channels for l in leftovers):
         return " / ".join(leftovers), channels, extra, declared
     return " ".join(leftovers).strip(), channels, extra, declared
+
+
+# ---------------------------------------------------------------------------
+# Writing the identity into a HiPS tree
+# ---------------------------------------------------------------------------
+#
+# `reproject_to_hips` accepts a `properties` dict that is merged over the
+# generated ones, so a build can set its identity directly.  `coadd_hips`
+# takes no such argument: it copies the FIRST input layer's properties
+# verbatim, so a coadd inherits whatever identity that layer happened to
+# carry and has to be stamped after the fact.
+
+import os
+
+
+def properties_for(output_directory, name=None, **extra):
+    """`properties=` for reproject_to_hips, or {} for an unrecognised name.
+
+    Pass straight through::
+
+        reproject_to_hips(png, output_directory=out, ...,
+                          properties=properties_for(out))
+
+    `name` overrides the directory's own name, for builds that stage into
+    ``<name>_hips.new`` and rename afterwards: the identity has to be the
+    one the layer is published under, and ``.new`` names are declined.
+
+    Returning {} rather than raising keeps a build working when a new layer
+    name has not been taught to `describe` yet; the name lands in the tree
+    unchanged, and `make_hipslist.py --check` reports it.
+    """
+    described = describe(name or
+                         os.path.basename(os.path.normpath(output_directory)))
+    if described is None:
+        return dict(extra)
+    did, title = described
+    return {"creator_did": did, "obs_title": title,
+            "hips_creator": CREATOR, **extra}
+
+
+def stamp_properties(directory, name=None, **extra):
+    """Rewrite an existing tree's identity keys in place.
+
+    For coadds, whose properties `coadd_hips` copies from the first input
+    layer, and for any tree rebuilt by a tool that cannot pass `properties`
+    through.  `name` is as in `properties_for`.  Returns True if the file
+    was changed.
+    """
+    path = os.path.join(directory, "properties")
+    wanted = properties_for(directory, name=name, **extra)
+    if not wanted or not os.path.exists(path):
+        return False
+
+    lines, seen = [], set()
+    with open(path) as fh:
+        for line in fh:
+            key = line.split("=", 1)[0].strip()
+            if key in wanted:
+                if key in seen:
+                    continue
+                seen.add(key)
+                lines.append(f"{key:<20} = {wanted[key]}\n")
+            else:
+                lines.append(line)
+    for key, val in wanted.items():
+        if key not in seen:
+            lines.insert(0, f"{key:<20} = {val}\n")
+
+    new = "".join(lines)
+    with open(path) as fh:
+        if fh.read() == new:
+            return False
+    with open(path, "w") as fh:
+        fh.write(new)
+    return True

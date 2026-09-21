@@ -10,6 +10,8 @@ from tqdm.auto import tqdm
 from reproject.hips import reproject_to_hips
 from reproject import reproject_interp
 
+from hips_naming import properties_for, stamp_properties
+
 import glob
 
 log.setLevel('INFO')
@@ -177,6 +179,7 @@ def main():
                     reproject_function=reproject_interp,
                     output_directory=output_directory,
                     threads=8,
+                    properties=properties_for(output_directory),
                     progress_bar=tqdm)
 
     # output_directory = 'rgb_final_uncropped_hips'
@@ -195,9 +198,11 @@ def main():
     if os.path.exists('AshFigureWithACES'):
         shutil.rmtree('AshFigureWithACES')
     coadd_hips(['rgb_final_uncropped_hips', 'MUSTANG_12m_feather_noaxes_hips'], 'AshFigureWithACES')
+    stamp_properties('AshFigureWithACES')
     if os.path.exists('AshFigureWithACES_MUSTANGfirst'):
         shutil.rmtree('AshFigureWithACES_MUSTANGfirst')
     coadd_hips(['MUSTANG_12m_feather_noaxes_hips', 'rgb_final_uncropped_hips', ], 'AshFigureWithACES_MUSTANGfirst')
+    stamp_properties('AshFigureWithACES_MUSTANGfirst')
 
     if os.path.exists('jwst_cmz_hips'):
         shutil.rmtree('jwst_cmz_hips')
@@ -226,6 +231,7 @@ def main():
                 'GC2211_o050_RGB_277-mean-200_asinh_hips',
                 ],
                'jwst_cmz_hips')
+    stamp_properties('jwst_cmz_hips')
 
 if __name__ == "__main__":
     main()

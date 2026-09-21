@@ -30,6 +30,7 @@ from reproject import reproject_interp
 from reproject.hips import reproject_to_hips, coadd_hips
 
 from python_reproject_to_hips import convert_black_to_transparent
+from hips_naming import properties_for
 from rebuild_jwst_cmz_hips import MIRI_LAYERS, build_coadd
 
 sys.path.insert(0, "/orange/adamginsburg/jwst/jwst_scripts/scripts")
@@ -72,7 +73,8 @@ def main():
     print(f"Reprojecting {TRANS} -> {HIPS}")
     reproject_to_hips(TRANS, coord_system_out='galactic', level=None,
                       reproject_function=reproject_interp,
-                      output_directory=HIPS, threads=8, progress_bar=tqdm)
+                      output_directory=HIPS, threads=8,
+                      properties=properties_for(HIPS), progress_bar=tqdm)
     print("Rebuilding jwst_miri_hips coadd...")
     build_coadd(MIRI_LAYERS, 'jwst_miri_hips')
     print("Done: sgrb2 MIRI layer refreshed, jwst_miri_hips rebuilt.")
