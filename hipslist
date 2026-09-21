@@ -3,13 +3,13 @@
 # Contact: Adam Ginsburg <adamginsburg@ufl.edu>
 
 creator_did          = ivo://UFL/P/archesquintuplet-rgb-323-average-212-log
-obs_title            = JWST/NIRCam Arches and Quintuplet clusters: F322W2 / mean / F212N (log stretch)
+obs_title            = JWST/NIRCam Arches and Quintuplet clusters: F323N / mean / F212N (log stretch)
 hips_release_date    = 2025-07-04T15:43:09.082559
 hips_service_url     = https://starformation.astro.ufl.edu/avm_images/ArchesQuintuplet_RGB_323-average-212_log_hips
 hips_status          = public master clonableOnce
 
 creator_did          = ivo://UFL/P/archesquintuplet-rgb-323-average-212-log-transparent
-obs_title            = JWST/NIRCam Arches and Quintuplet clusters: F322W2 / mean / F212N (log stretch, transparent background)
+obs_title            = JWST/NIRCam Arches and Quintuplet clusters: F323N / mean / F212N (log stretch, transparent background)
 hips_release_date    = 2026-08-15T19:13Z
 hips_service_url     = https://starformation.astro.ufl.edu/avm_images/ArchesQuintuplet_RGB_323-average-212_log_transparent_hips
 hips_status          = public master clonableOnce
@@ -315,7 +315,7 @@ hips_service_url     = https://starformation.astro.ufl.edu/avm_images/NGC6334_JW
 hips_status          = public master clonableOnce
 
 creator_did          = ivo://UFL/P/quintuplet-rgb-323-average-212-log-transparent
-obs_title            = JWST/NIRCam Quintuplet cluster: F322W2 / mean / F212N (log stretch, transparent background)
+obs_title            = JWST/NIRCam Quintuplet cluster: F323N / mean / F212N (log stretch, transparent background)
 hips_release_date    = 2026-08-15T19:15Z
 hips_service_url     = https://starformation.astro.ufl.edu/avm_images/Quintuplet_RGB_323-average-212_log_transparent_hips
 hips_status          = public master clonableOnce
@@ -345,13 +345,13 @@ hips_service_url     = https://starformation.astro.ufl.edu/avm_images/SgrA_RGB_M
 hips_status          = public master clonableOnce
 
 creator_did          = ivo://UFL/P/sgra-rgb-nircam-444-323-212
-obs_title            = JWST/NIRCam Sgr A*: F444W / F322W2 / F212N
+obs_title            = JWST/NIRCam Sgr A*: F444W / F323N / F212N
 hips_release_date    = 2025-07-04T17:10:32.400282
 hips_service_url     = https://starformation.astro.ufl.edu/avm_images/SgrA_RGB_NIRCam_444-323-212_hips
 hips_status          = public master clonableOnce
 
 creator_did          = ivo://UFL/P/sgra-rgb-nircam-444-323-212-transparent
-obs_title            = JWST/NIRCam Sgr A*: F444W / F322W2 / F212N (transparent background)
+obs_title            = JWST/NIRCam Sgr A*: F444W / F323N / F212N (transparent background)
 hips_release_date    = 2026-08-18T18:34Z
 hips_service_url     = https://starformation.astro.ufl.edu/avm_images/SgrA_RGB_NIRCam_444-323-212_transparent_hips
 hips_status          = public master clonableOnce
@@ -604,31 +604,31 @@ hips_status          = public master clonableOnce
 
 creator_did          = ivo://UFL/P/jwst-gc-treasury-rgb-f770w-f480m-f212n
 obs_title            = JWST GC Treasury: Galactic Centre RGB, MIRI F770W / NIRCam F480M / NIRCam F212N
-hips_release_date    = 2026-09-20T23:37Z
+hips_release_date    = 2026-09-21T17:57Z
 hips_service_url     = https://starformation.astro.ufl.edu/avm_images/gctreasury_mosaic_RGB_770-480-212_hips
 hips_status          = public master clonableOnce
 
 creator_did          = ivo://UFL/P/jwst-gc-blue-cluster-overlay
 obs_title            = JWST Galactic Centre: blue-cluster candidate catalogue overlay
-hips_release_date    = 2026-09-21T14:34Z
+hips_release_date    = 2026-09-21T21:39Z
 hips_service_url     = https://starformation.astro.ufl.edu/avm_images/jwst-rc-blue-hips
 hips_status          = public master clonableOnce
 
 creator_did          = ivo://UFL/P/jwst-gc-red-cluster-overlay
 obs_title            = JWST Galactic Centre: red-cluster candidate catalogue overlay
-hips_release_date    = 2026-09-21T14:34Z
+hips_release_date    = 2026-09-21T21:39Z
 hips_service_url     = https://starformation.astro.ufl.edu/avm_images/jwst-rc-red-hips
 hips_status          = public master clonableOnce
 
 creator_did          = ivo://UFL/P/jwst-gc-ultrared-star-overlay
 obs_title            = JWST Galactic Centre: ultra-red star catalogue overlay
-hips_release_date    = 2026-09-21T14:34Z
+hips_release_date    = 2026-09-21T21:39Z
 hips_service_url     = https://starformation.astro.ufl.edu/avm_images/jwst-red-stars-hips
 hips_status          = public master clonableOnce
 
 creator_did          = ivo://UFL/P/jwst-gc-treasury-nircam-mosaic
 obs_title            = JWST GC Treasury: NIRCam F480M / mean / F212N mosaic of the Galactic Centre
-hips_release_date    = 2026-09-21T09:48Z
+hips_release_date    = 2026-09-21T20:44Z
 hips_service_url     = https://starformation.astro.ufl.edu/avm_images/jwst_gc_treasury_hips
 hips_status          = public master clonableOnce
 
