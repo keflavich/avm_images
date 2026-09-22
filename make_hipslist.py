@@ -150,7 +150,27 @@ def plan(names):
     return rows
 
 
+def report_sync():
+    """Say whether hips_naming.py still matches the jwst_scripts original.
+
+    The naming rules are maintained in jwst_scripts and copied here, so a
+    correction landed there (F323N, say) would otherwise sit unnoticed in
+    this copy and keep regenerating the old title on every rebuild.
+    """
+    diff = hips_naming.sync_status()
+    if diff is None:
+        print("hips_naming: jwst_scripts copy not found, nothing to compare")
+    elif diff:
+        print("hips_naming: DIVERGED from "
+              f"{hips_naming.upstream_path()} -- re-sync before stamping")
+        print(diff)
+    else:
+        print(f"hips_naming: in sync with {hips_naming.upstream_path()}")
+    return bool(diff)
+
+
 def cmd_check(args):
+    report_sync()
     names = served_names()
     rows = plan(names)
     props = served_properties([r[0] for r in rows])

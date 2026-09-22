@@ -1,9 +1,12 @@
 """Descriptive names and identity keywords for the HiPS we publish.
 
-Kept byte-identical to `jwst_rgb/hips_naming.py` in jwst_scripts, which is
-where it is maintained.  It is copied rather than imported because this
-docroot is rebuilt by scripts that run with nothing on the path but this
-directory; `make_hipslist.py` is one of them.
+Copied from `jwst_rgb/hips_naming.py` in jwst_scripts, which is where it is
+maintained.  It is a copy rather than an import because this docroot is
+rebuilt by scripts that run with nothing on the path but this directory;
+`make_hipslist.py` is one of them.  The copy is the whole upstream file
+apart from this paragraph, and `sync_status()` below says so mechanically:
+`make_hipslist.py --check` reports a divergence wherever jwst_scripts is
+importable, so a fix landed upstream cannot sit here unnoticed.
 
 The HiPS network indexes datasets by `creator_did` and shows users
 `obs_title`, so both have to be meaningful.  What the builder wrote is
@@ -513,3 +516,84 @@ def stamp_properties(directory, name=None, **extra):
     with open(path, "w") as fh:
         fh.write(new)
     return True
+
+
+# ---------------------------------------------------------------------------
+# Staying in step with the upstream copy
+# ---------------------------------------------------------------------------
+
+import difflib
+import importlib.util
+
+UPSTREAM_PACKAGE = "jwst_rgb"
+UPSTREAM_BASENAME = "hips_naming.py"
+
+#: The one paragraph this copy adds, stripped before comparing.  Keep it in
+#: step with the docstring above, or the diff reports itself.
+PROVENANCE = """
+Copied from `jwst_rgb/hips_naming.py` in jwst_scripts, which is where it is
+maintained.  It is a copy rather than an import because this docroot is
+rebuilt by scripts that run with nothing on the path but this directory;
+`make_hipslist.py` is one of them.  The copy is the whole upstream file
+apart from this paragraph, and `sync_status()` below says so mechanically:
+`make_hipslist.py --check` reports a divergence wherever jwst_scripts is
+importable, so a fix landed upstream cannot sit here unnoticed.
+"""
+
+#: Lines this copy adds for the check itself, from the marker to the end.
+_SYNC_MARKER = "# Staying in step with the upstream copy"
+
+
+def _comparable(text):
+    """The upstream-shared part of a copy: no provenance, no sync section.
+
+    The section header the marker sits under goes too, hence dropping the
+    trailing comment and blank lines: otherwise the rule bar above the
+    marker reads as a difference and the check fires on itself.
+    """
+    lines = text.replace(PROVENANCE, "").split(_SYNC_MARKER)[0].split("\n")
+    while lines and (not lines[-1].strip() or lines[-1].lstrip().startswith("#")):
+        lines.pop()
+    return lines
+
+
+def upstream_path():
+    """Where jwst_scripts' copy lives, or None if it cannot be found.
+
+    Located through the package directory rather than through
+    `find_spec("jwst_rgb.hips_naming")`, so that a checkout predating the
+    module (the fix is in keflavich/jwst_scripts#27) reads as "nothing to
+    compare against" instead of raising.
+    """
+    try:
+        spec = importlib.util.find_spec(UPSTREAM_PACKAGE)
+    except (ImportError, ValueError):
+        return None
+    if spec is None or not spec.submodule_search_locations:
+        return None
+    for root in spec.submodule_search_locations:
+        path = os.path.join(root, UPSTREAM_BASENAME)
+        if os.path.exists(path):
+            return path
+    return None
+
+
+def sync_status():
+    """Whether this copy still matches jwst_scripts'.
+
+    Returns None where jwst_scripts is not importable (nothing to compare
+    against), "" where the two agree, and a unified diff otherwise.  The
+    diff is of the shared part only: the provenance paragraph and this
+    section are what this copy is allowed to add.
+    """
+    path = upstream_path()
+    if path is None:
+        return None
+    with open(path) as fh:
+        theirs = _comparable(fh.read())
+    with open(__file__.replace(".pyc", ".py")) as fh:
+        ours = _comparable(fh.read())
+    if ours == theirs:
+        return ""
+    return "\n".join(difflib.unified_diff(
+        theirs, ours, fromfile=path, tofile=__file__, lineterm="", n=1))
