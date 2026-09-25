@@ -29,6 +29,7 @@ import os
 import shutil
 from reproject.hips import coadd_hips
 
+from hips_naming import stamp_properties
 from hips_orientation import replace_dir
 
 
@@ -186,6 +187,10 @@ def build_coadd(layers, out):
         shutil.rmtree(stage)
     print(f"Coadding {len(layers)} layers -> {stage}")
     coadd_hips(layers, stage)
+    # coadd_hips copies all_properties[0], so without this the coadd is, to a
+    # HiPS client, the same dataset as whichever field sorted first.  The
+    # staging name is declined by describe(), hence name=out.
+    stamp_properties(stage, name=os.path.basename(out))
 
     # Only now is the live tree touched.  A crash above leaves it serving.
     # replace_dir removes a symlinked destination rather than renaming it,
